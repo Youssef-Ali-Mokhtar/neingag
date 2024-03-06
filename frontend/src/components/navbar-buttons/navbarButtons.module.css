@@ -1,0 +1,9 @@
+.navbar-buttons {
+    width: fit-content;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:15px;
+    color: var(--color-primary-font);
+}
