@@ -1,0 +1,24 @@
+.create-button {
+    height:100%;
+    padding:0px 14px;
+    border-radius: 50px;
+    cursor: pointer;
+    color: var(--color-primary-font);
+    font-size: 0.875rem;
+    border: none;
+    font-weight: bold;
+    background-color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-button-icon {
+    width: 20px;
+    height: 20px;
+    padding-right: 8px;
+}
+
+.create-button:hover {
+    background-color: var(--color-hover);
+}

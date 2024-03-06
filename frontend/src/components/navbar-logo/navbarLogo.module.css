@@ -1,0 +1,30 @@
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 40px;
+    color: var(--color-primary-font);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-icon-container {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.menu-icon-container:hover {
+    background-color: var(--color-hover);
+}
