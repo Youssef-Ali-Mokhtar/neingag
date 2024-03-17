@@ -3,14 +3,15 @@ import SwitchTheme from './navbar-buttons-items/SwitchTheme';
 import CreateButton from './navbar-buttons-items/CreateButton';
 import ProfileButton from './navbar-buttons-items/ProfileButton';
 import NotificationButton from './navbar-buttons-items/NotificationButton';
+import { forwardRef } from 'react';
 
-const NavbarButtons = () => {
+const NavbarButtons = ({ setNotifications, setProfile }, ref) => {
     return ( <div className={NavbarButtonsClasses['navbar-buttons']}>
         <SwitchTheme/>
-        <NotificationButton/>
-        <ProfileButton/>
+        <NotificationButton setNotifications={setNotifications} ref={ref.notificationBtnRef}/>
+        <ProfileButton setProfile={setProfile} ref={ref.profileBtnRef}/>
         <CreateButton/>
     </div> );
 }
- 
-export default NavbarButtons;
+
+export default forwardRef(NavbarButtons);
