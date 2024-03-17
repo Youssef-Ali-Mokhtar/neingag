@@ -1,11 +1,16 @@
 import ProfileButtonClasses from './profileButton.module.css';
 import prof from '../../../assets/prof.png';
+import { forwardRef } from 'react';
 
-const ProfileButton = () => {
-    return ( <div className={ProfileButtonClasses['profile-button']}>
+const ProfileButton = ({ setProfile }, ref) => {
+    return ( <div 
+        className={ProfileButtonClasses['profile-button']} 
+        onClick={setProfile}
+        ref={ref}
+        >
         <img src={prof} alt="pic"/>
         <div className={ProfileButtonClasses['overlay']}></div>
     </div> );
 }
  
-export default ProfileButton;
+export default forwardRef(ProfileButton);
