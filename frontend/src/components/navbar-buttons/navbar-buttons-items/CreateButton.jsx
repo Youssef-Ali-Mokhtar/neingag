@@ -1,11 +1,12 @@
 import CreateButtonClasses from './createButton.module.css';
+import { Link } from 'react-router-dom';
 import { FaPlus } from "react-icons/fa6";
 
 const CreateButton = () => {
-    return ( <button className={CreateButtonClasses['create-button']}>
+    return ( <Link to='/create-post' className={CreateButtonClasses['create-button']}>
         <FaPlus className={CreateButtonClasses['create-button-icon']}/>
         <p>Create</p>
-    </button> );
+    </Link> );
 }
  
 export default CreateButton;
