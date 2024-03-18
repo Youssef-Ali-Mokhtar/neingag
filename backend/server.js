@@ -1,13 +1,14 @@
 const express = require('express');
 
 const app = express();
+const cors = require('cors');
+const postRoutes = require('./routes/postRoute');
 
-app.use((req, res)=>{
-    
-    res.header('Content-Type', 'application/json');
+app.use(express.json());
 
-    res.send({"message":"This is a message!!"});
-});
+app.use(cors());
+
+app.use('/api/posts', postRoutes);
 
 app.listen(4000, ()=> {
     console.log('Server running on port 4000...');
