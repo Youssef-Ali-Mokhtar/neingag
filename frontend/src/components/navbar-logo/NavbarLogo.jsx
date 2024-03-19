@@ -8,7 +8,6 @@ const NavbarLogo = () => {
         <div className={NavbarLogoClasses['menu-icon-container']} onClick={setDrawer}>
             <IoMdMenu className={NavbarLogoClasses['menu-icon']}/>
         </div>
-        
         NeinGAG
     </div> );
 }
