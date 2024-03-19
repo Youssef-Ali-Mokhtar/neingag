@@ -1,30 +1,51 @@
+const getDb = require('../util/database').getDb;
+
 const posts = [];
 
 
 module.exports = class Post {
-    constructor(id, title, description) {
-        this.id = id;
+    constructor(title, description) {
         this.title = title;
         this.description = description;
     }
 
-    savePost() {
-        posts.push(this);
-        return this;
+    save(cb) {
+        const db = getDb();
+        db.collection('posts').insertOne(this)
+        .then(result=>{
+            const id = result.insertedId.toString();
+            console.log(id);
+            cb(id);
+        }).catch(err=>{
+            console.log(err);
+            cb(err.message);
+        });
     }
 
-    static getPost(id) {
-        const [post] = posts.filter(item=>item.id===id);
-
-        if(!post) {
-            throw new Error("Post doesn't exist!");
-        }
-    
-        return post;
+    static getPost(cb, id) {
+        const db = getDb();
+        db.collection('posts').findOne({_id: id})
+            .then(response=>{
+                console.log(response);
+                cb(response);
+            })
+            .catch(err=>{
+                console.log(err)
+                cb(err);
+            })
     }
 
-    static getPosts() {
-        return posts;
+    static fetchAll(cb) {
+        const db = getDb();
+        db.collection('posts').find({}).toArray()
+            .then(response=>{
+                console.log(response);
+                cb(response);
+            })
+            .catch(err=>{
+                console.log(err);
+                cb(err);
+            });
     }
 
 }

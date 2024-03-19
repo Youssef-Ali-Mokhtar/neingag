@@ -15,7 +15,7 @@ const Home = () => {
         {
             !loading && !error && 
             posts.map(post=>{
-                return <div key={post.id}>
+                return <div key={post._id.toString()}>
                     <h1>{post.title}</h1>
                     <p>{post.description}</p>
                 </div>;
