@@ -1,5 +1,6 @@
 import HomeClasses from './home.module.css';
 import useFetchPosts from '../hooks/useFetchPosts';
+import PostsList from '../components/post/PostsList';
 
 const Home = () => {
     const {
@@ -14,12 +15,7 @@ const Home = () => {
         }
         {
             !loading && !error && 
-            posts.map(post=>{
-                return <div key={post._id.toString()}>
-                    <h1>{post.title}</h1>
-                    <p>{post.description}</p>
-                </div>;
-            })
+            <PostsList posts={posts}/>
         }
         {
             !loading && error && <h1>{error}</h1>
