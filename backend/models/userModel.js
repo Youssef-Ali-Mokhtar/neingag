@@ -1,15 +1,15 @@
 const getDb = require('../util/database').getDb;
 const {ObjectId} = require('mongodb');
-module.exports = class Post {
-    constructor(title, description, userId) {
-        this.title = title;
-        this.description = description;
-        this.userId = userId;
+
+module.exports = class User {
+    constructor(username, email) {
+        this.username = username;
+        this.email = email;
     }
 
     save(cb) {
         const db = getDb();
-        db.collection('posts').insertOne(this)
+        db.collection('users').insertOne(this)
         .then(result=>{
             const id = result.insertedId.toString();
             cb(id);
@@ -19,30 +19,29 @@ module.exports = class Post {
         });
     }
 
-    static getPost(cb, id) {
+    static getUser(cb, id) {
         const db = getDb();
         const objectId = ObjectId.createFromHexString(id);
-        
-        db.collection('posts').findOne({_id: objectId})
-            .then(response=>{
-                cb(response);
-            })
-            .catch(err=>{
-                console.log(err)
-                cb(err);
-            })
-    }
 
-    static fetchAll(cb) {
-        const db = getDb();
-        db.collection('posts').find({}).toArray()
+        db.collection('users').findOne({_id: objectId})
             .then(response=>{
                 cb(response);
             })
             .catch(err=>{
                 console.log(err);
                 cb(err);
-            });
+            })
     }
 
+    static fetchAll(cb) {
+        const db = getDb();
+        db.collection('users').find({}).toArray()
+            .then(response=>{
+                cb(response);
+            })
+            .catch(err=>{
+                console.log(err);
+                cb(err);
+            })
+    }
 }
