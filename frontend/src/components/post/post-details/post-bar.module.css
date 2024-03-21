@@ -1,0 +1,24 @@
+.post-bar {
+    width: 600px;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0px;
+    margin-top: 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.post-bar-sub {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 5px 0px;
+}
+
+.post-bar-sub *{
+    margin: 0px 10px;
+    cursor: pointer;
+    color: var(--color-post-icon);
+}
