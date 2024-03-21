@@ -1,5 +1,4 @@
 const PostModel = require('../models/postModel');
-const {ObjectId} = require('mongodb');
 
 const getPosts = (req, res)=> {
     PostModel.fetchAll((response)=>{
@@ -9,16 +8,18 @@ const getPosts = (req, res)=> {
 
 const getPost = (req, res)=> {
     const id = req.params.id;
-    const objectId = ObjectId.createFromHexString(id);
 
     PostModel.getPost((response)=>{
         res.json(response);
-    }, objectId)
+    }, id);
 }
 
 const postPost = (req, res)=> {
     const {title, description} = req.body;
-    const postModel = new PostModel(title, description);
+    const userId = req.user._id;
+
+    const postModel = new PostModel(title, description, userId);
+
     postModel.save((result_id)=>{
         res.json(result_id);
     });
