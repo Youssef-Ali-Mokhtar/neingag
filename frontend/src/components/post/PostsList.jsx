@@ -7,8 +7,8 @@ const PostsList = ({posts}) => {
             posts.map((post, num)=>{
                 let isLast = num === posts.length-1;
                 return (<Post
-                        key={post._id.toString()}
-                        id={post._id.toString()}
+                        key={post._id}
+                        id={post._id}
                         title={post.title}
                         description={post.description}
                         isLast={isLast}

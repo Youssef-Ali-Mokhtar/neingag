@@ -11,7 +11,6 @@
 .post {
     width: 600px;
     height: fit-content;
-    border-bottom: 1px solid var(--color-border);
 }
 
 .post-title {
@@ -21,6 +20,7 @@
     font-size:20px;
     font-weight: bold;
     padding:5px 0px;
+    margin-bottom: 5px;
 }
 
 .post-description {
