@@ -1,4 +1,5 @@
 const UserModel = require('../models/userModel');
+const PostModel = require('../models/postModel');
 
 const postUser = (req, res)=> {
     const {
@@ -6,7 +7,7 @@ const postUser = (req, res)=> {
         email
     } = req.body;
 
-    const userModel = new UserModel(username, email);
+    const userModel = new UserModel(username, email, { postIds:[] });
     userModel.save(userId=> {
         res.json(userId);
     });
@@ -26,8 +27,25 @@ const getUser = (req, res)=> {
     }, id);
 }
 
+const postBookmark = (req, res)=> {
+    const postId = req.params.id;
+    PostModel.getPost(post=>{
+        req.user.addToBookmarks(response=>{
+            res.json(response);
+        }, post)
+    }, postId);
+}
+
+const getAllBookmarks = (req, res) => {
+    req.user.fetchAllBookmarks(posts=>{
+        res.json(posts);
+    })
+}
+
 module.exports = {
     postUser,
     getUser,
-    getUsers
+    getUsers,
+    postBookmark,
+    getAllBookmarks
 }
