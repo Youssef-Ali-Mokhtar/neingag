@@ -13,9 +13,10 @@ app.use(cors());
 app.use((req, res, next)=>{
 
     UserModel.getUser(user=> {
-        req.user = user;
+        req.user = new UserModel(user.username, user.email, user.bookmarks, user._id);
         next();
-    }, '65fad700b1c6c1ff0a5b7e3b');
+    }, '65fd2aac88beabe29731a651');
+
 })
 
 app.use('/api/posts', postRoutes);
