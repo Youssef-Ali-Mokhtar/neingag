@@ -1,42 +1,61 @@
-const PostModel = require('../models/postModel');
+const Post = require('../models/postModel');
 
 const getPosts = (req, res)=> {
-    PostModel.fetchAll((response)=>{
-        res.json(response);
-    });
+    Post.find()
+        .populate('userId')
+        .then(posts=> {
+            res.json(posts);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
 }
 
 const getPost = (req, res)=> {
-    const id = req.params.id;
+    const postId = req.params.id;
 
-    PostModel.getPost((response)=>{
-        res.json(response);
-    }, id);
+    Post.findById(postId)
+        .then(post=> {
+            res.json(post);
+        })
+        .catch(err=>{
+            console.log(err);
+        });
 }
 
 const postPost = (req, res)=> {
     const {title, description} = req.body;
-    const userId = req.user._id;
-    console.log("HEY!");
-    const postModel = new PostModel(title, description, userId);
-
-    postModel.save((result_id)=>{
-        res.json(result_id);
+    const post = new Post({
+        title: title, 
+        description: description,
+        userId: req.user._id
     });
+
+    post.save()
+        .then(result=>{
+            res.json(result);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
 }
 
 const deletePost = (req, res)=> {
     const id = req.params.id;
-    console.log("Delete this: ",id);
-    PostModel.delete(response=>{
-        res.json(response);
-    }, id);
 
+    Post.findByIdAndDelete(id)
+        .then(response=>{
+            res.json(response);
+        })
+        .catch(err=>{
+            res.json(err);
+        })
+    
 }
 
 module.exports = {
+    postPost,
     getPosts,
     getPost,
-    postPost,
     deletePost
 }
