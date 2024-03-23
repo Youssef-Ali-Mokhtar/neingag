@@ -1,8 +1,7 @@
 const express = require('express');
 const {
     getUsers,
-    getUser,
-    postUser,
+    updateUser,
     postBookmark,
     getAllBookmarks
 } = require('../controllers/userController');
@@ -11,13 +10,19 @@ const router = express.Router();
 
 router.get('/', getUsers);
 
+router.patch('/', updateUser);
+
+router.post('/bookmarks', postBookmark);
+
 router.get('/bookmarks', getAllBookmarks);
 
-router.get('/:id', getUser);
+// router.get('/bookmarks', getAllBookmarks);
 
-router.post('/', postUser);
+// router.get('/:id', getUser);
 
-router.patch('/bookmarks/:id', postBookmark);
+// router.post('/', postUser);
+
+// router.patch('/bookmarks/:id', postBookmark);
 
 
 

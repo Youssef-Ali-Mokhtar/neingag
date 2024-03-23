@@ -1,51 +1,79 @@
-const UserModel = require('../models/userModel');
-const PostModel = require('../models/postModel');
+const User = require('../models/userModel');
+const Post = require('../models/postModel');
+// const PostModel = require('../models/postModel');
 
-const postUser = (req, res)=> {
-    const {
-        username,
-        email
-    } = req.body;
+// const postUser = (req, res)=> {
+//     const {
+//         username,
+//         email
+//     } = req.body;
 
-    const userModel = new UserModel(username, email, { postIds:[] });
-    userModel.save(userId=> {
-        res.json(userId);
-    });
-}
+//     const userModel = new UserModel(username, email, { postIds:[] });
+//     userModel.save(userId=> {
+//         res.json(userId);
+//     });
+// }
+
 
 const getUsers = (req, res)=> {
-    UserModel.fetchAll(response=>{
+    User.find()
+    .then(response=>{
         res.json(response);
+    })
+    .catch(err=>{
+        console.log(err);
     })
 }
 
-const getUser = (req, res)=> {
-    const id = req.params.id;
-    
-    UserModel.getUser(response=>{
-        res.json(response);
-    }, id);
+const updateUser = (req, res)=> {
+    User.updateOne(
+        {_id: req.user._id},
+        {username: req.body.username}
+    )
+        .then(response=>{
+            console.log(response);
+            res.json(response);
+        })
+        .catch(err=>{
+            console.log(err);
+            res.json(err);
+        })
 }
 
-const postBookmark = (req, res)=> {
-    const postId = req.params.id;
-    PostModel.getPost(post=>{
-        req.user.addToBookmarks(response=>{
+const postBookmark = (req, res)=>{
+
+    Post.findById(req.body.postId)
+        .then(post=>{
+            return req.user.addToBookmarks(post);
+        })
+        .then(response=>{
             res.json(response);
-        }, post)
-    }, postId);
+        })
 }
+
 
 const getAllBookmarks = (req, res) => {
-    req.user.fetchAllBookmarks(posts=>{
-        res.json(posts);
-    })
+    req.user.populate('bookmarks')
+        .then(user=>{
+            res.json(user.bookmarks);
+        })
+        .catch(err=>{
+            res.json(err);
+        })
 }
 
+// const getUser = (req, res)=> {
+//     const id = req.params.id;
+    
+//     UserModel.getUser(response=>{
+//         res.json(response);
+//     }, id);
+// }
+
+
 module.exports = {
-    postUser,
-    getUser,
     getUsers,
+    updateUser,
     postBookmark,
     getAllBookmarks
 }
