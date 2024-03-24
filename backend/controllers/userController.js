@@ -53,6 +53,7 @@ const postBookmark = (req, res)=>{
 
 
 const getAllBookmarks = (req, res) => {
+
     req.user.populate('bookmarks')
         .then(user=>{
             res.json(user.bookmarks);
@@ -60,6 +61,13 @@ const getAllBookmarks = (req, res) => {
         .catch(err=>{
             res.json(err);
         })
+}
+
+const checkBookmark = (req, res)=> {
+    const bookmarkId = req.params.id;
+    const isBookmark = req.user.bookmarks.includes(bookmarkId);
+
+    res.json(isBookmark);
 }
 
 // const getUser = (req, res)=> {
@@ -75,5 +83,6 @@ module.exports = {
     getUsers,
     updateUser,
     postBookmark,
-    getAllBookmarks
+    getAllBookmarks,
+    checkBookmark
 }
