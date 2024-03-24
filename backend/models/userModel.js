@@ -21,32 +21,38 @@ const userSchema = new Schema({
     
 });
 
-    userSchema.methods.addToBookmarks = function(post) {
+userSchema.methods.addToBookmarks = function(post) {
 
-        console.log(this);
+    console.log(this);
+
+    const bookmarkPostIndex = this.bookmarks.findIndex(bp=>{
+        console.log("Inside loop:", bp);
+        return bp.toString() === post._id.toString();
+    });
+
     
-        const bookmarkPostIndex = this.bookmarks.findIndex(bp=>{
-            console.log("Inside loop:", bp);
-            return bp.toString() === post._id.toString();
-        });
+    let updatedPosts;
 
-        
-        let updatedPosts;
-
-        if(bookmarkPostIndex > -1) {
-            updatedPosts = this.bookmarks.filter(postId=>{
-                return postId.toString() !== post._id.toString();
-            })
-        } else {
-            updatedPosts = [...this.bookmarks, post._id];
-
-        }
-        
-        this.bookmarks = updatedPosts;
-
-        return this.save();
+    if(bookmarkPostIndex > -1) {
+        updatedPosts = this.bookmarks.filter(postId=>{
+            return postId.toString() !== post._id.toString();
+        })
+    } else {
+        updatedPosts = [...this.bookmarks, post._id];
 
     }
+    
+    this.bookmarks = updatedPosts;
+
+    return this.save();
+
+}
+
+userSchema.methods.checkBookmark = function(postId) {
+    
+    
+    return this.addToBookmarks(post);
+}
 
 module.exports = mongoose.model('User', userSchema);
 

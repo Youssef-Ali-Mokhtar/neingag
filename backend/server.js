@@ -29,7 +29,7 @@ app.use('/api/users', userRoutes);
 
 mongoose.connect(('mongodb+srv://youssef96mokhtar:LinuxLinux96@cluster0.aqpb7ct.mongodb.net/neingag?retryWrites=true&w=majority&appName=Cluster0'))
     .then(()=>{
-        User.findOne().then(user=>{
+        User.findOne().then(user=> {
             if(!user){
                 const user = new User(
                     {
