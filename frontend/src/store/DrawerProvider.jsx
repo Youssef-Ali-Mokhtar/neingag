@@ -2,7 +2,13 @@ import { drawerContext } from "./drawer-context";
 import { useEffect, useState } from "react";
 
 const DrawerProvider = ({children}) => {
-    const [drawer, setDrawer] = useState(true);
+    const [drawer, setDrawer] = useState(()=>{
+        if(window.innerWidth <= 1100){
+          return false;
+        } else {
+          return true;
+        }
+    });
 
     const handleDrawer = (event)=> {
         event.preventDefault();

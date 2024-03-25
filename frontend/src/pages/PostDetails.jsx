@@ -31,7 +31,7 @@ const PostDetails = () => {
     const {
         posts,
         error
-    } = useFetchPosts(id);
+    } = useFetchPosts(`http://localhost:4000/api/posts/${id}`);
 
     const handleDelete = ()=>{
         fetch(`http://localhost:4000/api/posts/${id}`, {

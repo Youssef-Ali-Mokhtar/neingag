@@ -33,7 +33,7 @@ const Navbar = () => {
         const closeNotificationMenu = (event) => {
             if (
                 notificationRef.current &&
-                !notificationRef.current.contains(event.target) &&
+                // !notificationRef.current.contains(event.target) &&
                 !notificationBtnRef.current.contains(event.target)
               ) {
                 setNotifications(false);
@@ -42,7 +42,7 @@ const Navbar = () => {
         const closeProfileMenu = (event) => {
             if (
                 profileRef.current &&
-                !profileRef.current.contains(event.target) &&
+                // !profileRef.current.contains(event.target) &&
                 !profileBtnRef.current.contains(event.target)
               ) {
                 setProfile(false);
