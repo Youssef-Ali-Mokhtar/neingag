@@ -7,7 +7,7 @@ const Home = () => {
         posts, 
         error, 
         loading
-    } = useFetchPosts();
+    } = useFetchPosts(`http://localhost:4000/api/posts/`);
 
     return ( <div className={HomeClasses['home']}>
         {

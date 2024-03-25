@@ -2,6 +2,8 @@
   --color-background-primary: #0B1416;
   --color-background-secondary: #1A282D;
   --color-border: rgba(128, 128, 128, 0.5);
+  --color-faint: #808080;
+  --color-faint-light: #999999;
   --color-post-icon: rgba(160, 160, 160, 0.8);
   --color-primary-font: white;
   --color-hover: #223237;
@@ -12,6 +14,9 @@
 .App {
   text-align: center;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 body {

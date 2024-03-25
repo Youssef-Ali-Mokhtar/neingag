@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useFetchPosts = (id) => {
+const useFetchPosts = (url) => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -9,7 +9,7 @@ const useFetchPosts = (id) => {
     const fetchPosts = () => {
       setLoading(true);
       setError(null);
-      fetch(`http://localhost:4000/api/posts/${id?id:''}`)
+      fetch(url)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Failed to fetch posts');
@@ -27,7 +27,7 @@ const useFetchPosts = (id) => {
     };
 
     fetchPosts();
-  }, [id]);
+  }, [url]);
 
   return { posts, error, loading };
 };
