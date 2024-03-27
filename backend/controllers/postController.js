@@ -1,7 +1,7 @@
 const Post = require('../models/postModel');
 
 const getPosts = (req, res)=> {
-    Post.find()
+    Post.find().sort({createdAt: -1})
         .populate('userId')
         .then(posts=> {
             res.json(posts);

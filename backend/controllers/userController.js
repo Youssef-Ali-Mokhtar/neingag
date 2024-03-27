@@ -1,26 +1,76 @@
 const User = require('../models/userModel');
 const Post = require('../models/postModel');
-// const PostModel = require('../models/postModel');
+const createToken = require('../util/createToken');
 
-// const postUser = (req, res)=> {
-//     const {
-//         username,
-//         email
-//     } = req.body;
+const postUser = (req, res)=> {
+    const {
+        username,
+        email,
+        password
+    } = req.body;
+        
+    const user = new User(
+        {
+            username: username,
+            email: email,
+            password: password,
+            bookmarks: []
+        }
+    );
+        
+    user.save()
+        .then(response=>{
+            res.json(response);
+        })
+        .catch(err=>{
+            res.json(err);
+        });
 
-//     const userModel = new UserModel(username, email, { postIds:[] });
-//     userModel.save(userId=> {
-//         res.json(userId);
-//     });
-// }
+        
+}
 
+const loginUser = (req, res)=> {
+    const {
+        email, 
+        password
+    } = req.body;
+
+    User.login(email, password)
+        .then(user=> {
+            const token = createToken(user._id);
+            res.status(200).json({userId: user._id, token});
+        })
+        .catch(err=> {
+            res.status(400).json({error: err.message});
+        })
+}
+
+const signupUser = (req, res)=> {
+    const {
+        username,
+        email,
+        password
+    } = req.body;
+
+    User.signup(username, email, password)
+        .then(user=>{
+            const token = createToken(user._id);
+
+            res.status(200).json({userId: user._id, token});
+        })
+        .catch(err=>{
+            console.log(err.message);
+            res.status(400).json({error: err.message});
+        });
+    
+}
 
 const getUsers = (req, res)=> {
     User.find()
-    .then(response=>{
+    .then(response=> {
         res.json(response);
     })
-    .catch(err=>{
+    .catch(err=> {
         console.log(err);
     })
 }
@@ -48,6 +98,9 @@ const postBookmark = (req, res)=>{
         })
         .then(response=>{
             res.json(response);
+        })
+        .catch(err=>{
+            res.json(err);
         })
 }
 
@@ -84,5 +137,8 @@ module.exports = {
     updateUser,
     postBookmark,
     getAllBookmarks,
-    checkBookmark
+    checkBookmark,
+    signupUser,
+    loginUser,
+    postUser
 }
