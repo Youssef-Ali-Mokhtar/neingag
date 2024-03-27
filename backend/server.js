@@ -12,7 +12,7 @@ app.use(cors());
 
 app.use((req, res, next)=>{
 
-    User.findById('65feba8d19350fb4ec003179')
+    User.findById('6602b1afec2be2ef5f1da2c6')
         .then(user=>{
             req.user = user;
             next();
@@ -35,6 +35,7 @@ mongoose.connect(('mongodb+srv://youssef96mokhtar:LinuxLinux96@cluster0.aqpb7ct.
                     {
                         username: 'Youssef',
                         email: 'Youssef96mokhtar@gmail.com',
+                        password: 'password',
                         bookmarks: []
                     }
                 );

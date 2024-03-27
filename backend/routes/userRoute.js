@@ -4,10 +4,20 @@ const {
     updateUser,
     postBookmark,
     getAllBookmarks,
-    checkBookmark
+    checkBookmark,
+    loginUser,
+    signupUser,
+    postUser
 } = require('../controllers/userController');
 
 const router = express.Router();
+
+
+router.post('/', postUser);
+
+router.post('/login', loginUser);
+
+router.post('/signup', signupUser);
 
 router.get('/', getUsers);
 
@@ -18,14 +28,6 @@ router.post('/bookmarks', postBookmark);
 router.get('/bookmarks', getAllBookmarks);
 
 router.get('/bookmarks/:id', checkBookmark);
-
-// router.get('/bookmarks', getAllBookmarks);
-
-// router.get('/:id', getUser);
-
-// router.post('/', postUser);
-
-// router.patch('/bookmarks/:id', postBookmark);
 
 
 
