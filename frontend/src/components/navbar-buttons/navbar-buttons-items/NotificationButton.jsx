@@ -1,4 +1,4 @@
-import NotificationButtonClasses from './notificationButton.module.css';
+import NotificationButtonClasses from '../navbarButtons.module.css';
 import { IoMdNotifications } from "react-icons/io";
 import { forwardRef } from 'react';
 

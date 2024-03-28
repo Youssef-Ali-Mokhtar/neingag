@@ -23,3 +23,38 @@ input {
     font-size: 14px;
     margin: 10px 0px;
 }
+
+.login button {
+    width: 90%;
+    height: 40px;
+    border-radius: 50px;
+    margin: 10px 0px;
+    font-size: 14px;
+    outline: none;
+    border: none;
+    cursor:pointer;
+    color: var( --color-primary-font);
+    font-weight: bold;
+    background-color: var(--color-button);
+}
+
+.error-space {
+    width: 90%;
+    height: 30px;
+    color: var(--color-primary-font);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mode-button {
+    width: 90%;
+    height: 30px;
+    color: var(--color-primary-font);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}

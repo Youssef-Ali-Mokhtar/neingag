@@ -4,26 +4,21 @@ import NavbarButtons from '../components/navbar-buttons/NavbarButtons';
 import NavbarLogo from '../components/navbar-logo/NavbarLogo';
 import PCNotifications from './notifications-list/pc/PCNotifications';
 import PCProfile from './profile-list/PCProfile';
-import Modal from '../components/modal/Modal';
 import { useState, useRef, useEffect } from 'react';
-import Login from '../components/login/Login';
+import Authentication from '../components/login/Authentication';
+import { useAuthModalContext } from './../hooks/useAuthModalContext';
 
 const Navbar = () => {
     const [notifications, setNotifications] = useState(false);
     const [profile, setProfile] = useState(false);
-    const [loginModal, setLoginModal] = useState(false);
 
+    const { authModal } = useAuthModalContext();
 
     const notificationRef = useRef();
     const notificationBtnRef = useRef();
 
     const profileRef = useRef();
     const profileBtnRef = useRef();
-
-    const handleLoginModal = (e)=> {
-      setLoginModal(prev=>!prev);
-    }
-
 
     const handleNotifications = ()=> {
 
@@ -77,12 +72,8 @@ const Navbar = () => {
         />
         {notifications && <PCNotifications ref={notificationRef}/>}
         {profile && <PCProfile ref={profileRef}/>}
-        {loginModal && 
-          <Modal handleModal={handleLoginModal}>
-            <Login/>
-          </Modal>
-          }
-        <button onClick={handleLoginModal}>login</button>
+        {authModal && <Authentication/>}
+
     </div> );
 }
  

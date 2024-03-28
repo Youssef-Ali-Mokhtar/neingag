@@ -1,6 +1,6 @@
 import NavbarLogoClasses from './navbarLogo.module.css';
 import { IoMdMenu } from "react-icons/io";
-import { useDrawerContext } from '../../hooks/useDrawerContext';
+import { useDrawerContext } from './../../hooks/useDrawerContext';
 import { Link } from 'react-router-dom';
 const NavbarLogo = () => {
     const {setDrawer} = useDrawerContext();
