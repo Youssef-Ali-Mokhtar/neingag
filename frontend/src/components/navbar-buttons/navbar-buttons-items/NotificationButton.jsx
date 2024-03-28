@@ -11,5 +11,5 @@ const NotificationButton = ({ setNotifications }, ref) => {
         <IoMdNotifications className={NotificationButtonClasses['notification-icon']}/>
     </div> );
 }
- 
+
 export default forwardRef(NotificationButton);

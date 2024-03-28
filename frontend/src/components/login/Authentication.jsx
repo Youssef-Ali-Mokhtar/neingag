@@ -1,20 +1,23 @@
 import { useState } from 'react';
 import Modal from './../modal/Modal';
-import useAuth from './../../hooks/useAuth';
+import useFetchAuth from './../../hooks/useFetchAuth';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useLogout } from '../../hooks/useLogout';
 
 const Authentication = () => {
     const [mode, setMode] = useState('login');
     const [loginInput, setLoginInput] = useState({email:'', password:''});
     const [signupInput, setSignupInput] = useState({username:'',email:'', password:''});
-
     const {
         fetchAuth,
         data,
         error
-    } = useAuth();
-    console.log(data);
+    } = useFetchAuth();
+    const { user } = useAuthContext();
+    const logout = useLogout();
+    console.log("USER STATE NOW: ", user);
     const handleMode = (type)=> {
         setMode(type);
     }
@@ -73,7 +76,7 @@ const Authentication = () => {
                 :
                 ''
             }
-            
+            <button onClick={logout}>logout</button>
           </Modal>
         );
 }
