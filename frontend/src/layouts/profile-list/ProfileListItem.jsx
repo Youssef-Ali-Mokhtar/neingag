@@ -1,16 +1,9 @@
 import ProfileClasses from './pc-profile.module.css';
-import { useNavigate } from 'react-router-dom';
 
-const ProfileListItem = ({title, link}) => {
-    const navigate = useNavigate();
-    const handleNavigate = (event)=>{
-        event.preventDefault();
-        navigate(link);
-    }
+const ProfileListItem = ({onClick, title}) => {
     return ( <div 
-        to={link} 
         className={ProfileClasses['profile-list-item']}
-        onClick={handleNavigate}
+        onClick={onClick}
         >
         {title}
     </div> );

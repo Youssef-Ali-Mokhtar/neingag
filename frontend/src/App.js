@@ -6,7 +6,7 @@ import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {
   const { user } = useAuthContext();
-  console.log("USER STATE: ",user);
+  console.log("USER STATE: ", user);
   return (
     <div className="App">
       <Navbar/>
