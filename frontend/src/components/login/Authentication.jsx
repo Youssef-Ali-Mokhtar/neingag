@@ -4,7 +4,6 @@ import useFetchAuth from './../../hooks/useFetchAuth';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { useLogout } from '../../hooks/useLogout';
 
 const Authentication = () => {
     const [mode, setMode] = useState('login');
@@ -15,8 +14,8 @@ const Authentication = () => {
         data,
         error
     } = useFetchAuth();
+    
     const { user } = useAuthContext();
-    const logout = useLogout();
     console.log("USER STATE NOW: ", user);
     const handleMode = (type)=> {
         setMode(type);
@@ -76,7 +75,6 @@ const Authentication = () => {
                 :
                 ''
             }
-            <button onClick={logout}>logout</button>
           </Modal>
         );
 }
