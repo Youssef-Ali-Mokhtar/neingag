@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import { useAuthModalContext } from './useAuthModalContext';
-const useAuth = ()=> {
+import { useAuthContext } from './useAuthContext';
+
+const useFetchAuth = ()=> {
     const [data, setData] = useState({});
     const [error, setError] = useState(null);
+    const {
+        handleLogin
+    } = useAuthContext();
+
     const { handleAuthModal } = useAuthModalContext();
     const fetchAuth = (input, type)=>{
         console.log(input, type);
@@ -25,6 +31,7 @@ const useAuth = ()=> {
                         } else {
                             console.log('Login successful:', data);
                             setData(data);
+                            handleLogin(data);
                             handleAuthModal();
                         }
                 })
@@ -38,4 +45,4 @@ const useAuth = ()=> {
     return {fetchAuth, data, error};
 }
 
-export default useAuth;
+export default useFetchAuth;
