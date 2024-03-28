@@ -41,7 +41,7 @@ const loginUser = (req, res)=> {
             res.status(200).json({userId: user._id, token});
         })
         .catch(err=> {
-            res.status(400).json({error: err.message});
+            res.status(400).json(err.message);
         })
 }
 
@@ -60,7 +60,7 @@ const signupUser = (req, res)=> {
         })
         .catch(err=>{
             console.log(err.message);
-            res.status(400).json({error: err.message});
+            res.status(400).json(err.message);
         });
     
 }

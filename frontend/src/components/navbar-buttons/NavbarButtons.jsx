@@ -3,6 +3,7 @@ import SwitchTheme from './navbar-buttons-items/SwitchTheme';
 import CreateButton from './navbar-buttons-items/CreateButton';
 import ProfileButton from './navbar-buttons-items/ProfileButton';
 import NotificationButton from './navbar-buttons-items/NotificationButton';
+import AuthButton from './navbar-buttons-items/AuthButton';
 import { forwardRef } from 'react';
 
 const NavbarButtons = ({ setNotifications, setProfile }, ref) => {
@@ -11,6 +12,7 @@ const NavbarButtons = ({ setNotifications, setProfile }, ref) => {
         <NotificationButton setNotifications={setNotifications} ref={ref.notificationBtnRef}/>
         <ProfileButton setProfile={setProfile} ref={ref.profileBtnRef}/>
         <CreateButton/>
+        <AuthButton/>
     </div> );
 }
 

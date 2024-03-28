@@ -1,4 +1,4 @@
-import SwitchClasses from './switchTheme.module.css';
+import SwitchClasses from '../navbarButtons.module.css';
 import { useState } from 'react';
 
 const SwitchTheme = () => {

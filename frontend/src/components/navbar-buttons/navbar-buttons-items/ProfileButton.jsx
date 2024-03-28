@@ -1,5 +1,5 @@
-import ProfileButtonClasses from './profileButton.module.css';
-import prof from '../../../assets/prof.png';
+import ProfileButtonClasses from './../navbarButtons.module.css';
+import prof from './../../../assets/prof.png';
 import { forwardRef } from 'react';
 
 const ProfileButton = ({ setProfile }, ref) => {
