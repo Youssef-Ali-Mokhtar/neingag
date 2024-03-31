@@ -30,7 +30,7 @@ const userSchema = new Schema({
 
 userSchema.methods.addToBookmarks = function(post) {
 
-    console.log(this);
+    console.log("Inside addToBookmarks: ", this);
 
     const bookmarkPostIndex = this.bookmarks.findIndex(bp=>{
         console.log("Inside loop:", bp);

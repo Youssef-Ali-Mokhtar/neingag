@@ -13,7 +13,7 @@ const Main = () => {
             <Route index element={<Home/>}/>
             <Route path="/:id" element={<PostDetails/>}/>
             <Route path="/create-post" element={<CreatePost/>}/>
-            <Route path="/profile" element={<Profile/>}>
+            <Route path="/profile/:userId" element={<Profile/>}>
                 <Route index element={<Navigate to="posts" replace />} />
                 <Route path="posts" element={<MyPosts/>}/>
                 <Route path="bookmarks" element={<Bookmarks/>}/>

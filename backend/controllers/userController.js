@@ -2,33 +2,6 @@ const User = require('../models/userModel');
 const Post = require('../models/postModel');
 const createToken = require('../util/createToken');
 
-const postUser = (req, res)=> {
-    const {
-        username,
-        email,
-        password
-    } = req.body;
-        
-    const user = new User(
-        {
-            username: username,
-            email: email,
-            password: password,
-            bookmarks: []
-        }
-    );
-        
-    user.save()
-        .then(response=>{
-            res.json(response);
-        })
-        .catch(err=>{
-            res.json(err);
-        });
-
-        
-}
-
 const loginUser = (req, res)=> {
     const {
         email, 
@@ -53,7 +26,7 @@ const signupUser = (req, res)=> {
     } = req.body;
 
     User.signup(username, email, password)
-        .then(user=>{
+        .then(user=> {
             const token = createToken(user._id);
 
             res.status(200).json({userId: user._id, token});
@@ -65,8 +38,10 @@ const signupUser = (req, res)=> {
     
 }
 
-const getUsers = (req, res)=> {
-    User.find()
+const getUser = (req, res)=> {
+    const { id } = req.params;
+
+    User.findById(id)
     .then(response=> {
         res.json(response);
     })
@@ -90,10 +65,10 @@ const updateUser = (req, res)=> {
         })
 }
 
-const postBookmark = (req, res)=>{
+const postBookmark = (req, res)=> {
 
     Post.findById(req.body.postId)
-        .then(post=>{
+        .then(post=> {
             return req.user.addToBookmarks(post);
         })
         .then(response=>{
@@ -106,12 +81,15 @@ const postBookmark = (req, res)=>{
 
 
 const getAllBookmarks = (req, res) => {
-
-    req.user.populate('bookmarks')
-        .then(user=>{
+    console.log("BOOKMARKS: ", req.user);
+    req.user.populate({
+        path: 'bookmarks', 
+        options: { sort: { createdAt: -1 } }
+    })
+        .then(user=> {
             res.json(user.bookmarks);
         })
-        .catch(err=>{
+        .catch(err=> {
             res.json(err);
         })
 }
@@ -123,22 +101,12 @@ const checkBookmark = (req, res)=> {
     res.json(isBookmark);
 }
 
-// const getUser = (req, res)=> {
-//     const id = req.params.id;
-    
-//     UserModel.getUser(response=>{
-//         res.json(response);
-//     }, id);
-// }
-
-
 module.exports = {
-    getUsers,
+    getUser,
     updateUser,
     postBookmark,
     getAllBookmarks,
     checkBookmark,
     signupUser,
-    loginUser,
-    postUser
+    loginUser
 }

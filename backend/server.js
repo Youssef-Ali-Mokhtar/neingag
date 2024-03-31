@@ -5,23 +5,14 @@ const cors = require('cors');
 const postRoutes = require('./routes/postRoute');
 const userRoutes = require('./routes/userRoute');
 const User = require('./models/userModel');
+const requireAuth = require('./middleware/requireAuth');
+require('dotenv').config();
 
 app.use(express.json());
 
 app.use(cors());
 
-app.use((req, res, next)=>{
-
-    User.findById('6602b1afec2be2ef5f1da2c6')
-        .then(user=>{
-            req.user = user;
-            next();
-        })
-        .catch(err=>{
-            console.log(err);
-        })
-    
-})
+// app.use(requireAuth);
 
 app.use('/api/posts', postRoutes);
 

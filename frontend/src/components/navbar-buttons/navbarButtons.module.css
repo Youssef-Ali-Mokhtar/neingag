@@ -147,10 +147,13 @@ a {
   }
 
   .auth-button {
+    height: 100%;
     min-width: 60px;
     font-size: 14px;
     font-weight: bold;
     color: var(--color-faint-light);
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }

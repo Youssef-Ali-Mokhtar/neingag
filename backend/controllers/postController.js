@@ -13,8 +13,9 @@ const getPosts = (req, res)=> {
 
 const getPost = (req, res)=> {
     const postId = req.params.id;
-
+    console.log(postId);
     Post.findById(postId)
+        .populate('userId')
         .then(post=> {
             res.json(post);
         })
@@ -25,6 +26,7 @@ const getPost = (req, res)=> {
 
 const postPost = (req, res)=> {
     const {title, description} = req.body;
+    console.log("TEST", req.user);
     const post = new Post({
         title: title, 
         description: description,
@@ -32,30 +34,43 @@ const postPost = (req, res)=> {
     });
 
     post.save()
-        .then(result=>{
+        .then(result=> {
             res.json(result);
         })
-        .catch(err=>{
+        .catch(err=> {
             console.log(err);
         })
 }
 
 const deletePost = (req, res)=> {
     const id = req.params.id;
+    Post.deletePost(id, req.user._id)
+        .then(response=> {
+            res.status(200).json(response);
+        })
+        .catch(err=> {
+            console.log(err.message);
+            res.status(401).json(err.message);
+        })
+}
 
-    Post.findByIdAndDelete(id)
-        .then(response=>{
-            res.json(response);
-        })
-        .catch(err=>{
-            res.json(err);
-        })
-    
+const getUserPosts = (req, res)=> {
+    const userId = req.params.userId;
+
+    Post.find({userId: userId})
+    .populate('userId')
+    .then(response=> {
+        res.json(response);
+    })
+    .catch(err=> {
+        res.json(err);
+    })
 }
 
 module.exports = {
     postPost,
     getPosts,
     getPost,
-    deletePost
+    deletePost,
+    getUserPosts
 }

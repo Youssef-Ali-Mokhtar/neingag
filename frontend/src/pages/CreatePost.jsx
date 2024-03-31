@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import CreatePostClasses from './create-post.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const CreatePost = () => {
     const [postInput, setPostInput] = useState({title:'', description:''});
     const navigate = useNavigate();
+    const { user } = useAuthContext();
 
     const handleInput = (event)=> {
         setPostInput(prev=>({
@@ -14,10 +16,12 @@ const CreatePost = () => {
     }
 
     const handleSubmitInput = (event)=> {
+        console.log(user.token);
         event.preventDefault();
         fetch('http://localhost:4000/api/posts', {
             method:'POST',
             headers: {
+                'Authorization': `Bearer ${user.token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(postInput)
