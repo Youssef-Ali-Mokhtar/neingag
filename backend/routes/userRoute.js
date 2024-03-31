@@ -1,34 +1,33 @@
 const express = require('express');
 const {
-    getUsers,
+    getUser,
     updateUser,
     postBookmark,
     getAllBookmarks,
     checkBookmark,
     loginUser,
-    signupUser,
-    postUser
+    signupUser
 } = require('../controllers/userController');
 
+const requireAuth = require('./../middleware/requireAuth');
+
 const router = express.Router();
-
-
-router.post('/', postUser);
 
 router.post('/login', loginUser);
 
 router.post('/signup', signupUser);
 
-router.get('/', getUsers);
+router.get('/profile/:id', getUser);
 
-router.patch('/', updateUser);
+router.use(requireAuth);
+
+router.patch('/profile', updateUser);
 
 router.post('/bookmarks', postBookmark);
 
 router.get('/bookmarks', getAllBookmarks);
 
 router.get('/bookmarks/:id', checkBookmark);
-
 
 
 module.exports = router;

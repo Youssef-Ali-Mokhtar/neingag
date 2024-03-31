@@ -3,14 +3,21 @@ const {
     getPosts,
     getPost,
     postPost,
-    deletePost
+    deletePost,
+    getUserPosts
 } = require('../controllers/postController');
+
+const requireAuth = require('./../middleware/requireAuth');
 
 const router = express.Router();
 
 router.get('/', getPosts);
 
+router.get('/:userId/posts', getUserPosts);
+
 router.get('/:id', getPost);
+
+router.use(requireAuth);
 
 router.post('/', postPost);
 
