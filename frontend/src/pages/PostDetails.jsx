@@ -2,6 +2,7 @@ import PostDetailsClasses from './post-details.module.css';
 import useFetchPosts from '../hooks/useFetchPosts';
 import { useParams } from 'react-router-dom';
 import PostBar from '../components/post/post-details/PostBar';
+import PostHeader from '../components/post/post-details/PostHeader';
 
 const PostDetails = () => {
     
@@ -19,6 +20,7 @@ const PostDetails = () => {
         {
             post && !error &&
             <>
+                <PostHeader category='Humor' post={post}/>
                 <div className={PostDetailsClasses['post']}>
                     <h1 className={PostDetailsClasses['post-title']}>{post.title}</h1>
                     <p className={PostDetailsClasses['post-description']}>{post.description}</p>

@@ -4,7 +4,8 @@ import { useState } from 'react';
 const SwitchTheme = () => {
   const [isChecked, setIsChecked] = useState(true);
       
-  const handleToggle = () => {
+  const handleToggle = (e) => {
+    e.stopPropagation();
       setIsChecked((prev) => !prev);
   };
   console.log(isChecked);

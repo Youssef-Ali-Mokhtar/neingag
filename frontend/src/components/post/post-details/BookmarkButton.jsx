@@ -22,11 +22,9 @@ const BookmarkButton = () => {
             })
         })
         .then(response => {
-            console.log(response);
             return response.json();
         })
         .then(data=>{
-            console.log(data);
             setBookmark(prev=>!prev);
         })
         .catch(err => {
@@ -45,7 +43,6 @@ const BookmarkButton = () => {
                 return response.json();
             })
             .then(isBookmark=> {
-                console.log("Bookmark2: ", isBookmark);
                 setBookmark(isBookmark);
             })
             .catch(err=> {
