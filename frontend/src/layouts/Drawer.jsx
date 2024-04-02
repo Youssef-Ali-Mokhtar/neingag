@@ -3,7 +3,6 @@ import { useDrawerContext } from '../hooks/useDrawerContext';
 
 const Drawer = () => {
     const {drawer} = useDrawerContext();
-    console.log("DRAWER: ", drawer);
 
     const drawerClass = `${DrawerClasses['drawer']} ${
         drawer ? '' : DrawerClasses['closed']

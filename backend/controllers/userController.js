@@ -83,8 +83,11 @@ const postBookmark = (req, res)=> {
 const getAllBookmarks = (req, res) => {
     console.log("BOOKMARKS: ", req.user);
     req.user.populate({
-        path: 'bookmarks', 
-        options: { sort: { createdAt: -1 } }
+        path: 'bookmarks',
+        options: { 
+            sort: { createdAt: -1 },
+            populate: { path: 'userId' }
+        }
     })
         .then(user=> {
             res.json(user.bookmarks);

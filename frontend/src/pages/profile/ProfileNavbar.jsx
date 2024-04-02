@@ -9,8 +9,7 @@ const navClass = ({isActive})=> {
 const ProfileNavbar = () => {
     const { user } = useAuthContext();
     const { userId } = useParams();
-    console.log(user?.userId);
-    console.log(userId);
+
     const isLoggedUser = user?.userId === userId;
 
     return ( <div className={ProfileClasses['profile-navbar']}>

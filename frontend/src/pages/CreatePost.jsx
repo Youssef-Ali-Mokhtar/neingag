@@ -37,7 +37,6 @@ const CreatePost = () => {
         console.log("Heey!!");
     }
 
-    console.log(postInput);
     return ( <div className={CreatePostClasses['create-post']}>
         <form 
             className={CreatePostClasses['input-container']}

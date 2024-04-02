@@ -7,7 +7,7 @@ const useFetchPosts = (url, token) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuthContext();
   useEffect(() => {
-    console.log("useFetchPosts: ", user?.token);
+
     const fetchPosts = () => {
       setLoading(true);
       setError(null);
@@ -17,7 +17,6 @@ const useFetchPosts = (url, token) => {
         }
       })
         .then((response) => {
-          console.log('RESPONSE!');
           if (!response.ok) {
             throw new Error('Failed to fetch posts');
           }

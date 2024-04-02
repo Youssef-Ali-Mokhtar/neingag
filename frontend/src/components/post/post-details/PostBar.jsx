@@ -1,4 +1,4 @@
-import PostBarClasses from './post-bar.module.css';
+import PostBarClasses from './../post.module.css';
 import { BiUpvote } from "react-icons/bi";
 // import { BiSolidUpvote } from "react-icons/bi";
 
@@ -18,7 +18,6 @@ const PostBar = ({ post }) => {
 
     const isPostOwner = postUserId === currentUserId;
 
-    console.log("POST BAR: ", isPostOwner);
     return ( <div className={PostBarClasses['post-bar']}>
         <div className={PostBarClasses['post-bar-sub']}>
             <BiUpvote size={24}/>
