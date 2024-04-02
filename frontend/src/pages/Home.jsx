@@ -3,6 +3,7 @@ import useFetchPosts from '../hooks/useFetchPosts';
 import PostsList from '../components/post/PostsList';
 
 const Home = () => {
+
     const {
         posts, 
         error, 

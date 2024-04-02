@@ -1,7 +1,22 @@
 const Post = require('../models/postModel');
 
 const getPosts = (req, res)=> {
+
     Post.find().sort({createdAt: -1})
+        .populate('userId')
+        .then(posts=> {
+            res.json(posts);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+}
+
+const getSpecificPosts = (req, res)=> {
+    const category = req.params.category;
+
+    Post.find({category: category}).
+        sort({createdAt: -1})
         .populate('userId')
         .then(posts=> {
             res.json(posts);
@@ -25,11 +40,12 @@ const getPost = (req, res)=> {
 }
 
 const postPost = (req, res)=> {
-    const {title, description} = req.body;
+    const {title, description, category} = req.body;
     console.log("TEST", req.user);
     const post = new Post({
         title: title, 
         description: description,
+        category: category,
         userId: req.user._id
     });
 
@@ -72,5 +88,6 @@ module.exports = {
     getPosts,
     getPost,
     deletePost,
-    getUserPosts
+    getUserPosts,
+    getSpecificPosts
 }
