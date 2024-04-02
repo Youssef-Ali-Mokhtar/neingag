@@ -6,11 +6,13 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Profile from '../pages/profile/Profile';
 import Bookmarks from '../pages/Bookmarks';
 import MyPosts from '../pages/MyPosts';
+import CategoryPosts from '../pages/CaregoryPosts';
 
 const Main = () => {
     return ( <div className={MainClasses['content-holder']}>
         <Routes>
             <Route index element={<Home/>}/>
+            <Route path="/interest/:category" element={<CategoryPosts/>}/>
             <Route path="/:id" element={<PostDetails/>}/>
             <Route path="/create-post" element={<CreatePost/>}/>
             <Route path="/profile/:userId" element={<Profile/>}>

@@ -1,7 +1,7 @@
 import './App.css';
 import Navbar from './layouts/Navbar';
 import Main from './layouts/Main';
-import Drawer from './layouts/Drawer';
+import Drawer from './layouts/drawer/Drawer';
 import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {

@@ -4,7 +4,8 @@ const {
     getPost,
     postPost,
     deletePost,
-    getUserPosts
+    getUserPosts,
+    getSpecificPosts
 } = require('../controllers/postController');
 
 const requireAuth = require('./../middleware/requireAuth');
@@ -12,6 +13,8 @@ const requireAuth = require('./../middleware/requireAuth');
 const router = express.Router();
 
 router.get('/', getPosts);
+
+router.get('/interest/:category', getSpecificPosts);
 
 router.get('/:userId/posts', getUserPosts);
 
