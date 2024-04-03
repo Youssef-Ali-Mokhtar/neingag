@@ -2,7 +2,6 @@ import PostsListClasses from './posts-list.module.css';
 import Post from './Post';
 
 const PostsList = ({posts}) => {
-    console.log(posts);
     return ( <div className={PostsListClasses['posts-list']}>
         
         {

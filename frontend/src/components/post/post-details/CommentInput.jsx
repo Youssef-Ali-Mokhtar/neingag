@@ -1,8 +1,8 @@
 import { useState } from "react";
 import CommentsInputClasses from './../post.module.css';
-import prof from './../../../assets/prof.png';
 import { useParams } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { extractAvatar } from "../../../util/utilFunctions";
 
 const CommentInput = ({ refetch }) => {
     const [comment, setComment] = useState('');
@@ -43,7 +43,7 @@ const CommentInput = ({ refetch }) => {
     }
 
     return ( <div className={ CommentsInputClasses['comment-input-container'] }>
-        <img src={prof} alt="pic"/>
+        <img src={extractAvatar(user?.avatarNum)} alt="pic"/>
         <div className={ CommentsInputClasses['comment-input-form'] }>
             <textarea
                 onChange={ onChangeComment }

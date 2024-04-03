@@ -29,7 +29,7 @@ const getSpecificPosts = (req, res)=> {
 const searchPosts = (req, res)=> {
     const {query} = req.query
     const regexPattern = new RegExp(query.split(/\s+/).map(word => `${word}`).join('|'), 'i');
-    console.log(regexPattern);
+
     Post.find({ title: { $regex: regexPattern } })
         .sort({createdAt: -1})
         .populate('userId')
@@ -63,7 +63,7 @@ const getPost = (req, res)=> {
 
 const postPost = (req, res)=> {
     const {title, description, category} = req.body;
-    console.log("TEST", req.user);
+
     const post = new Post({
         title: title, 
         description: description,
@@ -111,7 +111,7 @@ const postComment = (req, res)=> {
     const postId = req.params.id;
     const userId = req.user._id;
     const comment = req.body.comment;
-    console.log(req.body);
+
     Post.postComment(postId, userId, comment)
         .then(updatedPost=> {
             console.log(updatedPost);
