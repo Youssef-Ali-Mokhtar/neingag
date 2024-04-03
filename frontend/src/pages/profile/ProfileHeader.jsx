@@ -1,12 +1,12 @@
 import ProfileClasses from './profile.module.css';
-import profilePicture from '../../assets/prof.png';
 import ProfileNavbar from './ProfileNavbar';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { formatDate, extractAvatar } from '../../util/utilFunctions';
 
 const ProfileHeader = () => {
     const { userId } = useParams();
-    const [profileData, setProfileData] = useState({username:''});
+    const [profileData, setProfileData] = useState(null);
 
     useEffect(()=> {
         const fetchProfile = ()=> {
@@ -25,20 +25,23 @@ const ProfileHeader = () => {
     },[userId])
 
     return ( <div className={ProfileClasses['profile-header-container']}>
-        <div className={ProfileClasses['profile-header']}>
-
-            <div className={ProfileClasses['image-holder']}>
-                <img src={profilePicture} alt="pic"/>
-            </div>
-
-            <div className={ProfileClasses['text-holder']}>
-                    <h2>{ profileData.username }</h2>
-                    <p>4,500 days</p>
-            </div>
-            
-        </div>
-        <div className={ProfileClasses['bio-holder']}>My cringe collection!</div>
-        <ProfileNavbar/>
+        {   profileData &&
+                <>
+                    <div className={ProfileClasses['profile-header']}>
+                        
+                        <div className={ProfileClasses['image-holder']}>
+                            <img src={extractAvatar(profileData.avatarNum)} alt="pic"/>
+                        </div>
+                        
+                        <div className={ProfileClasses['text-holder']}>
+                                <h2>{ profileData.username }</h2>
+                                <p>{formatDate(profileData.createdAt)}</p>
+                        </div>
+                    </div>
+                    <div className={ProfileClasses['bio-holder']}>{profileData.bio}</div>
+                    <ProfileNavbar/>
+                </>
+        }
     </div> );
 }
 

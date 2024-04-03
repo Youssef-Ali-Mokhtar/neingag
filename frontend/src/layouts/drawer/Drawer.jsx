@@ -35,6 +35,7 @@ const Drawer = () => {
         {
             drawerList.map(item=>{
                 return <DrawerListItem
+                    key={item.title}
                     path={item.path} 
                     title={item.title}
                     />;

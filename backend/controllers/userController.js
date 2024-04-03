@@ -22,10 +22,13 @@ const signupUser = (req, res)=> {
     const {
         username,
         email,
-        password
+        password,
+        bio,
+        avatarNum
     } = req.body;
-
-    User.signup(username, email, password)
+    
+    console.log(username, email, bio, avatarNum);
+    User.signup(username, email, password, bio, avatarNum)
         .then(user=> {
             const token = createToken(user._id);
 

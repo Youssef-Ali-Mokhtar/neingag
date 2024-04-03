@@ -74,6 +74,7 @@ const getUserPosts = (req, res)=> {
     const userId = req.params.userId;
 
     Post.find({userId: userId})
+    .sort({createdAt: -1})
     .populate('userId')
     .then(response=> {
         res.json(response);

@@ -19,6 +19,14 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    bio: {
+        type: String,
+        required: true,
+    },
+    avatarNum: {
+        type: Number,
+        required: true,
+    },
     bookmarks:  [
             {
                 type: Schema.Types.ObjectId,
@@ -26,7 +34,7 @@ const userSchema = new Schema({
             }
         ]
     
-});
+}, {timestamps:true});
 
 userSchema.methods.addToBookmarks = function(post) {
 
@@ -55,15 +63,18 @@ userSchema.methods.addToBookmarks = function(post) {
 
 }
 
-userSchema.statics.signup = function(username, email, password) {
+userSchema.statics.signup = function(username, email, password, bio, avatarNum) {
 
     const validateSignup = () => {
         return new Promise((resolve, reject) => { 
-            if (!username || !email || !password) {
+            if (!username || !email || !password || !bio) {
                 reject(Error('All fields must be filled.'));
             }
             if (username.length < 6 || username.length > 15) {
                 reject(Error('Username must be between 6 and 15 characters long.'));
+            }
+            if(!(avatarNum>=0 && avatarNum<=9)){
+                reject(Error('Avatar number has to be between 0 and 9.'));
             }
             if (!validator.isEmail(email)) {
                 reject(Error('Email is not valid.'));
@@ -95,7 +106,7 @@ userSchema.statics.signup = function(username, email, password) {
             return bcrypt.hash(password, salt);
         })
         .then(hashedPassword => {
-            return this.create({ username, email, password: hashedPassword, bookmarks: [] });
+            return this.create({ username, email, password: hashedPassword, bio, avatarNum, bookmarks: [] });
         });
 };
 

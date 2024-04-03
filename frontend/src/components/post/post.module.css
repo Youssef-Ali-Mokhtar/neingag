@@ -21,6 +21,7 @@
     font-size:20px;
     font-weight: bold;
     padding:5px 0px;
+    line-height: 1.6;
 }
 
 .post-content-holder a:hover {
@@ -33,6 +34,7 @@
     text-align: left;
     font-size: 16px;
     padding:5px 0px;
+    line-height: 1.6;
 }
 
 .is-last {
