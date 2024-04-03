@@ -26,6 +26,21 @@ const getSpecificPosts = (req, res)=> {
         })
 }
 
+const searchPosts = (req, res)=> {
+    const {query} = req.query
+    const regexPattern = new RegExp(query.split(/\s+/).map(word => `${word}`).join('|'), 'i');
+    console.log(regexPattern);
+    Post.find({ title: { $regex: regexPattern } })
+        .sort({createdAt: -1})
+        .populate('userId')
+        .then(posts=> {
+            res.json(posts);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+}
+
 const getPost = (req, res)=> {
     const postId = req.params.id;
     console.log(postId);
@@ -90,5 +105,6 @@ module.exports = {
     getPost,
     deletePost,
     getUserPosts,
-    getSpecificPosts
+    getSpecificPosts,
+    searchPosts
 }

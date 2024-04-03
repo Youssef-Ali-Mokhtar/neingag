@@ -6,9 +6,11 @@ const useFetchPosts = (url, token) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { user } = useAuthContext();
+
   useEffect(() => {
 
     const fetchPosts = () => {
+      console.log("BEING FETCHED AGAIN");
       setLoading(true);
       setError(null);
       fetch(url, {

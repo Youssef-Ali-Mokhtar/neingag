@@ -27,6 +27,7 @@
     height: 24px;
     padding-right: 8px;
     color: var(--color-icon);
+    cursor: pointer;
 }
 
 .search-bar input {

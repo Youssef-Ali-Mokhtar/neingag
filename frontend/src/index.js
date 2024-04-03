@@ -6,6 +6,7 @@ import DrawerProvider from './store/DrawerProvider';
 import AuthModalProvider from './store/AuthModalProvider';
 import AuthProvider from './store/AuthProvider';
 import {BrowserRouter} from 'react-router-dom';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <AuthProvider>
