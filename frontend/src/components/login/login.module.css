@@ -8,6 +8,8 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+    padding:10px 0px;
 }
 
 input {
@@ -57,4 +59,22 @@ input {
     cursor: pointer;
     font-weight: bold;
     font-size: 14px;
+}
+
+img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.img-button {
+    padding: 8px 16px;
+    background-color: var(--color-button);
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 20px;
+    user-select: none;
 }

@@ -7,18 +7,20 @@ import Profile from '../pages/profile/Profile';
 import Bookmarks from '../pages/Bookmarks';
 import MyPosts from '../pages/MyPosts';
 import CategoryPosts from '../pages/CaregoryPosts';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Main = () => {
+    const { user } = useAuthContext();
     return ( <div className={MainClasses['content-holder']}>
         <Routes>
             <Route index element={<Home/>}/>
             <Route path="/interest/:category" element={<CategoryPosts/>}/>
             <Route path="/:id" element={<PostDetails/>}/>
-            <Route path="/create-post" element={<CreatePost/>}/>
+            <Route path="/create-post" element={user? <CreatePost/>: <Navigate to="/" />}/>
             <Route path="/profile/:userId" element={<Profile/>}>
                 <Route index element={<Navigate to="posts" replace />} />
                 <Route path="posts" element={<MyPosts/>}/>
-                <Route path="bookmarks" element={<Bookmarks/>}/>
+                <Route path="bookmarks" element={user? <Bookmarks/>: <Navigate to="posts" />}/>
             </Route>
         </Routes>
     </div> );

@@ -23,6 +23,7 @@
     font-weight: bold;
     padding:5px 0px;
     margin-bottom: 5px;
+    line-height: 1.6;
 }
 
 .post-description {
@@ -31,4 +32,5 @@
     text-align: left;
     font-size: 16px;
     padding:5px 0px;
+    line-height: 1.6;
 }

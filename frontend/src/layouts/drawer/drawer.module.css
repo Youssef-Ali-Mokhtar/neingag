@@ -2,7 +2,7 @@
     width: 240px;
     height: calc(100vh - 60px);
     margin-top: 60px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0);
     position: fixed;
     left: 0;
     color: white;

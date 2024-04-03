@@ -1,8 +1,21 @@
 import LoginClasses from './login.module.css';
 
-const SignupForm = ({handleSignupSubmit, handleSignupInput, signupInput, error, handleMode}) => {
+const SignupForm = ({
+    handleSignupSubmit, 
+    handleSignupInput, 
+    signupInput, 
+    error, 
+    handleMode,
+    handleAvatar,
+    avatar }) => {
 
     return ( <form className={LoginClasses['login']} onSubmit={handleSignupSubmit}>
+        <img src={avatar.pic} alt='avatar'/>
+        <p 
+            onClick={handleAvatar}
+            className={LoginClasses['img-button']}>
+                Random
+        </p>
         <input 
             type='text'
             placeholder="Username"
@@ -23,6 +36,13 @@ const SignupForm = ({handleSignupSubmit, handleSignupInput, signupInput, error, 
             name="password" 
             onChange={handleSignupInput} 
             value={signupInput.password}
+            required/>
+        <input 
+            type='text'
+            placeholder="Bio"
+            name="bio"
+            onChange={handleSignupInput} 
+            value={signupInput.bio}
             required/>
         {error &&
             <div className={LoginClasses['error-space']}>

@@ -12,28 +12,12 @@ app.use(express.json());
 
 app.use(cors());
 
-// app.use(requireAuth);
-
 app.use('/api/posts', postRoutes);
 
 app.use('/api/users', userRoutes);
 
 mongoose.connect(('mongodb+srv://youssef96mokhtar:LinuxLinux96@cluster0.aqpb7ct.mongodb.net/neingag?retryWrites=true&w=majority&appName=Cluster0'))
     .then(()=>{
-        User.findOne().then(user=> {
-            if(!user){
-                const user = new User(
-                    {
-                        username: 'Youssef',
-                        email: 'Youssef96mokhtar@gmail.com',
-                        password: 'password',
-                        bookmarks: []
-                    }
-                );
-                    
-                user.save();
-            }
-        })
         app.listen(4000, ()=> {
             console.log('Server running on port 4000...');
         });
