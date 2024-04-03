@@ -6,9 +6,12 @@ import { formatDate, capitalizeFirstLetter } from '../../../util/utilFunctions';
 
 const PostHeader = ({category, post}) => {
     return ( <div className={PostHeaderClasses['post-header']}>
-        <div className={PostHeaderClasses['image-holder']}>
+        <Link 
+            to={`/interest/${post?.category}`} 
+            className={PostHeaderClasses['image-holder']}
+            >
             <img src={matchPicture(post.category)} alt="pic"/>
-        </div>
+        </Link>
         <div className={PostHeaderClasses['text-holder']}>
                 <Link to={`/interest/${post?.category}`}>
                     <h2> {capitalizeFirstLetter(post.category)} </h2>
