@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuthContext } from './useAuthContext';
 
 const useFetchPosts = (url, token) => {
@@ -7,40 +7,40 @@ const useFetchPosts = (url, token) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuthContext();
 
-  useEffect(() => {
-
-    const fetchPosts = () => {
-      console.log("BEING FETCHED AGAIN");
-      setLoading(true);
-      setError(null);
-      fetch(url, {
-        headers: {
-          'authorization': `Bearer ${user?.token}`
+  const fetchPosts = useCallback(() => {
+    console.log("BEING FETCHED AGAIN");
+    setLoading(true);
+    setError(null);
+    fetch(url, {
+      headers: {
+        'authorization': `Bearer ${user?.token}`
+      }
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts');
         }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch posts');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setLoading(false);
-          setPosts(data);
-        })
-        .catch((err) => {
-          setLoading(false);
-          setError(err.message);
-        });
-    };
-    
+      .then((data) => {
+        setLoading(false);
+        setPosts(data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err.message);
+      });
+  },[url, user?.token]);
 
+  useEffect(() => {
     fetchPosts();
-    
-    
-  }, [url, user?.token]);
+  }, [url, user?.token, fetchPosts]);
 
-  return { posts, error, loading };
+  const refetch = ()=> {
+    fetchPosts();
+  }
+
+  return { posts, error, loading, refetch };
 };
 
 export default useFetchPosts;

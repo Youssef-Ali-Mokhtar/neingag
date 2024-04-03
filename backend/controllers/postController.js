@@ -43,15 +43,22 @@ const searchPosts = (req, res)=> {
 
 const getPost = (req, res)=> {
     const postId = req.params.id;
-    console.log(postId);
+
     Post.findById(postId)
         .populate('userId')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'userId'
+            }
+        })
         .then(post=> {
             res.json(post);
         })
         .catch(err=>{
             console.log(err);
         });
+
 }
 
 const postPost = (req, res)=> {
@@ -61,6 +68,7 @@ const postPost = (req, res)=> {
         title: title, 
         description: description,
         category: category,
+        comments:[],
         userId: req.user._id
     });
 
@@ -99,6 +107,19 @@ const getUserPosts = (req, res)=> {
     })
 }
 
+const postComment = (req, res)=> {
+    const postId = req.params.id;
+    const userId = req.user._id;
+    const comment = req.body.comment;
+    console.log(req.body);
+    Post.postComment(postId, userId, comment)
+        .then(updatedPost=> {
+            console.log(updatedPost);
+            res.json(updatedPost);
+        })
+}
+
+
 module.exports = {
     postPost,
     getPosts,
@@ -106,5 +127,6 @@ module.exports = {
     deletePost,
     getUserPosts,
     getSpecificPosts,
-    searchPosts
+    searchPosts,
+    postComment
 }
