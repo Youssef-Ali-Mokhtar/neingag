@@ -3,7 +3,6 @@ const User = require('./../models/userModel');
 
 const requireAuth = (req, res, next)=> {
     const { authorization } = req.headers;
-    console.log("AUTH IS BEING USED");
     if(!authorization) {
         return res.status(401).json({error: 'Authorization token required'});
     }

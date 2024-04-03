@@ -8,7 +8,6 @@ const SearchPosts = () => {
     const queryParams = new URLSearchParams(location.search);
     const queryValue = queryParams.get('query');
     const encodedQuery = encodeURIComponent(queryValue);
-    console.log(encodedQuery);
 
     const { posts } = useFetchPosts(`http://localhost:4000/api/posts/search?query=${encodedQuery}`);
 

@@ -11,7 +11,12 @@ const loginUser = (req, res)=> {
     User.login(email, password)
         .then(user=> {
             const token = createToken(user._id);
-            res.status(200).json({userId: user._id, token});
+            res.status(200).json({
+                userId: user._id,
+                avatarNum: user.avatarNum,
+                username: user.username, 
+                token
+            });
         })
         .catch(err=> {
             res.status(400).json(err.message);
@@ -27,14 +32,18 @@ const signupUser = (req, res)=> {
         avatarNum
     } = req.body;
     
-    console.log(username, email, bio, avatarNum);
     User.signup(username, email, password, bio, avatarNum)
         .then(user=> {
             const token = createToken(user._id);
 
-            res.status(200).json({userId: user._id, token});
+            res.status(200).json({
+                userId: user._id,
+                avatarNum: user.avatarNum,
+                username: user.username, 
+                token
+            });
         })
-        .catch(err=>{
+        .catch(err=> {
             console.log(err.message);
             res.status(400).json(err.message);
         });
@@ -84,7 +93,6 @@ const postBookmark = (req, res)=> {
 
 
 const getAllBookmarks = (req, res) => {
-    console.log("BOOKMARKS: ", req.user);
     req.user.populate({
         path: 'bookmarks',
         options: { 
@@ -103,7 +111,6 @@ const getAllBookmarks = (req, res) => {
 const checkBookmark = (req, res)=> {
     const bookmarkId = req.params.id;
     const isBookmark = req.user.bookmarks.includes(bookmarkId);
-
     res.json(isBookmark);
 }
 

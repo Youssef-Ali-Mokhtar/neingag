@@ -8,7 +8,6 @@ const useFetchPosts = (url, token) => {
   const { user } = useAuthContext();
 
   const fetchPosts = useCallback(() => {
-    console.log("BEING FETCHED AGAIN");
     setLoading(true);
     setError(null);
     fetch(url, {

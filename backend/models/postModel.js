@@ -40,7 +40,7 @@ const postSchema = new Schema({
 }, {timestamps:true});
 
 postSchema.statics.deletePost = function(postId, userId) {
-    // if(this.userId === )
+
     return this.findOne({_id:postId})
         .then(post=> {
             if(post.userId.toString() !== userId.toString()) {
