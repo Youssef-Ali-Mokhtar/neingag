@@ -31,8 +31,9 @@ const Authentication = () => {
     }
 
     const handleAvatar = ()=> {
-        setSignupInput(prev=>({...prev, avatarNum: avatar.num}))
-        setAvatar(pickAvatar);
+        const currentAvatar = pickAvatar();
+        setAvatar(currentAvatar);
+        setSignupInput(prev=>({...prev, avatarNum: currentAvatar.num}))
     }
 
     const handleLoginInput = (event)=> {
@@ -56,7 +57,6 @@ const Authentication = () => {
 
     const handleSignupSubmit = (event)=> {
         event.preventDefault();
-        console.log(signupInput);
         fetchAuth(signupInput, 'signup');
     }
 
