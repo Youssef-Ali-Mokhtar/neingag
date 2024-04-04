@@ -29,13 +29,19 @@ const PCProfile = (props, ref) => {
 
     const handleBookmarks = (event)=>{
         event.preventDefault();
-        navigate(`profile/${user.userId}/bookmarks`);
+        navigate(`/profile/${user.userId}/bookmarks`);
+    }
+
+    const handleSettings = (event)=>{
+        event.preventDefault();
+        navigate(`/settings`);
     }
 
     return ( <div className={PCProfileClasses['profile']} ref={ref}>
         <ProfileListItem title='My Profile' onClick={handleNavigate}/>
         <ProfileListItem title='Logout' onClick={handleLogout}/>
         <ProfileListItem title='Bookmarks' onClick={handleBookmarks}/>
+        <ProfileListItem title='Settings' onClick={handleSettings}/>
     </div> );
 }
  
