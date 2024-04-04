@@ -14,7 +14,6 @@ const requireAuth = (req, res, next)=> {
             .then(user=> {
                 req.user = user;
                 console.log(user);
-                console.log("AUTH...", user._id);
                 next();
             })
             .catch(err=>{

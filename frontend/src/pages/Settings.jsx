@@ -50,26 +50,24 @@ const Settings = () => {
     }
 
     const handleSubmit = ()=> {
-        // fetch(`http://localhost:4000/api/users/profile/${user?.userId}`, {
-        //     method: 'PATCH',
-        //     headers: {
-        //         'Authorization': `Bearer ${user.token}`,
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({})
-        // })
-        // .then(response=> {
-        //     console.log(response);
-        //     return response.json();
-        // })
-        // .then(data=> {
-        //     console.log(data);
-
-        // })
-        // .catch(err=> {
-        //     console.log(err.message);
-        // })
-        console.log(settings);
+        fetch(`http://localhost:4000/api/users/profile`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({...settings})
+        })
+        .then(response=> {
+            console.log(response);
+            return response.json();
+        })
+        .then(data=> {
+            console.log(data);
+        })
+        .catch(err=> {
+            console.log(err.message);
+        })
     }
 
     return ( <div className={settingsClasses['settings']}>

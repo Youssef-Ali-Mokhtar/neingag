@@ -54,7 +54,6 @@ userSchema.methods.addToBookmarks = function(post) {
         })
     } else {
         updatedPosts = [...this.bookmarks, post._id];
-
     }
     
     this.bookmarks = updatedPosts;

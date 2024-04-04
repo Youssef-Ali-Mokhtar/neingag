@@ -63,12 +63,18 @@ const getUser = (req, res)=> {
 }
 
 const updateUser = (req, res)=> {
-    User.updateOne(
-        {_id: req.user._id},
-        {username: req.body.username}
+    console.log(req.user._id);
+    const {
+        username,
+        bio,
+        avatarNum
+    } = req.body;
+
+    User.findByIdAndUpdate(
+        req.user._id,
+        { username, bio, avatarNum },
     )
         .then(response=>{
-            console.log(response);
             res.json(response);
         })
         .catch(err=>{
