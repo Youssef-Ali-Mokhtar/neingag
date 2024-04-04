@@ -67,9 +67,8 @@ const CreatePost = () => {
             category: event.value
         }));
     }
-    console.log(postInput);
+
     const handleSubmitInput = (event)=> {
-        console.log(user.token);
         event.preventDefault();
         fetch('http://localhost:4000/api/posts', {
             method:'POST',
@@ -80,14 +79,12 @@ const CreatePost = () => {
             body: JSON.stringify(postInput)
         })
         .then(response=> {
-            console.log(response);
             setPostInput({title:'', description:''});
             navigate('/');
         })
         .catch(err=>{
             console.log(err);
         })
-        console.log("Heey!!");
     }
 
     return ( <div className={CreatePostClasses['create-post']}>
