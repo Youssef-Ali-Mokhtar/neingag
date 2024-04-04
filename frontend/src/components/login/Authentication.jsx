@@ -33,7 +33,10 @@ const Authentication = () => {
     const handleAvatar = ()=> {
         const currentAvatar = pickAvatar();
         setAvatar(currentAvatar);
-        setSignupInput(prev=>({...prev, avatarNum: currentAvatar.num}))
+        setSignupInput(prev=>({
+            ...prev, 
+            avatarNum: currentAvatar.num
+        }))
     }
 
     const handleLoginInput = (event)=> {
