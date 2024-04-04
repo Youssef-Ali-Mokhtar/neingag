@@ -2,11 +2,13 @@ import settingsClasses from './settings.module.css';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { extractAvatar, pickAvatar } from '../util/utilFunctions';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
     const [settings, setSettings] = useState({username:'', bio:'', avatarNum:null});
     const { user } = useAuthContext();
-    
+    const navigate = useNavigate();
+
     useEffect(()=> {
         const fetchProfile = ()=> {
             fetch(`http://localhost:4000/api/users/profile/${user?.userId}`)
@@ -59,11 +61,10 @@ const Settings = () => {
             body: JSON.stringify({...settings})
         })
         .then(response=> {
-            console.log(response);
             return response.json();
         })
         .then(data=> {
-            console.log(data);
+            navigate(`/profile/${user?.userId}`);
         })
         .catch(err=> {
             console.log(err.message);
