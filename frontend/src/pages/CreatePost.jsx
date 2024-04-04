@@ -16,6 +16,7 @@ const customStyles = {
       fontSize: '14px',
       fontWeight: 'bold',
       margin: '10px 0px',
+      cursor:'pointer'
     }),
     indicatorSeparator: (provided, state) => ({
         ...provided,

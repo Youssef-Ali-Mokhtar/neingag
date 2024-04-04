@@ -29,11 +29,6 @@
     width: 50%;
 }
 
-.select-category__option {
-    background-color: var(--color-background-primary);
-    /* padding: 12px 16px; */
-}
-
 .input-title {
     width: 100%;
     padding: 12px 16px;
