@@ -6,4 +6,14 @@
     justify-content: flex-start;
     align-items: center;
     color: white;
+    padding-bottom: 20px;
+}
+
+.no-more-posts {
+    width: 100%;
+    padding: 16px 12px;
+    font-weight: bold;
+    color: var(--color-faint);
+    box-sizing: border-box;
+    background-color: var(--color-background-secondary);
 }
