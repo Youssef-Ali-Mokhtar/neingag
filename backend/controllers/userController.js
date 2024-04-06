@@ -99,13 +99,21 @@ const postBookmark = (req, res)=> {
 
 
 const getAllBookmarks = (req, res) => {
-    req.user.populate({
+    
+    const page = parseInt(req.query.page) || 1;
+    const limit = 4;
+    const skip = (page - 1) * limit;
+
+    User.findById(req.user._id)
+        .populate({
         path: 'bookmarks',
         options: { 
             sort: { createdAt: -1 },
             populate: { path: 'userId' }
         }
     })
+        .skip(skip)
+        .limit(limit)
         .then(user=> {
             res.json(user.bookmarks);
         })

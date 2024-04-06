@@ -1,26 +1,72 @@
 import HomeClasses from './home.module.css';
-import useFetchPosts from '../hooks/useFetchPosts';
 import PostsList from '../components/post/PostsList';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useEffect, useState } from 'react';
+import {useAuthContext} from './../hooks/useAuthContext';
 
 const Home = () => {
+    const {user} = useAuthContext();
+    const [posts, setPosts] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(1);
 
-    const {
-        posts, 
-        error, 
-        loading
-    } = useFetchPosts(`http://localhost:4000/api/posts/`);
+    useEffect(()=>{
+        fetch(`http://localhost:4000/api/posts?page=${page}`, {
+            headers: {
+              'authorization': `Bearer ${user?.token}`
+            }
+          })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Failed to fetch posts');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setLoading(false);
 
+            if(!data.length) {
+                setHasMore(false);
+            }
+            if(page === 1){
+                setPosts(data);
+            } else {
+                setPosts(prev=>[...prev, ...data]);
+            }
+            
+          })
+          .catch((err) => {
+            setLoading(false);
+            setError(err.message);
+          });
+    },[page, user?.token])
+
+    const handleLoadMore = () => {
+        setPage(prevPage => prevPage + 1);
+      };
+
+    console.log(posts.length);
     return ( <div className={HomeClasses['home']}>
-        {
+        {/* {
             loading && !error && <h1>Loading...</h1>
-        }
+        } */}
         {
-            !loading && !error && 
-            <PostsList posts={posts}/>
+            !loading && !error &&
+            <InfiniteScroll
+                dataLength={posts.length}
+                next={handleLoadMore}
+                hasMore={hasMore}
+                endMessage={<p className={HomeClasses['no-more-posts']}>No more posts to load</p>}
+                style={{overflow: 'hidden'}}
+            >
+                <PostsList posts={posts}/>
+            </InfiniteScroll>
         }
-        {
+        {/* {
             !loading && error && <h1>{error}</h1>
-        }
+        } */}
     </div> );
 }
  

@@ -3,7 +3,6 @@ import Post from './Post';
 
 const PostsList = ({posts}) => {
     return ( <div className={PostsListClasses['posts-list']}>
-        
         {
             posts.map((post, num)=>{
                 let isLast = num === posts.length-1;

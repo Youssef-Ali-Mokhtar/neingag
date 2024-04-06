@@ -24,3 +24,7 @@ body {
   margin: 0px;
   background-color: #0B1416;
 }
+
+.infinite-scroll-component__outerdiv {
+  width:100%;
+}

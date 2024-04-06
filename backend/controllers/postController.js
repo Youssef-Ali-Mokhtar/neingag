@@ -1,9 +1,14 @@
 const Post = require('../models/postModel');
 
 const getPosts = (req, res)=> {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 4;
+    const skip = (page - 1) * limit;
 
     Post.find().sort({createdAt: -1})
         .populate('userId')
+        .skip(skip)
+        .limit(limit)
         .then(posts=> {
             res.json(posts);
         })
@@ -14,10 +19,15 @@ const getPosts = (req, res)=> {
 
 const getSpecificPosts = (req, res)=> {
     const category = req.params.category;
-
+    const page = parseInt(req.query.page) || 1;
+    const limit = 4;
+    const skip = (page - 1) * limit;
+    
     Post.find({category: category}).
         sort({createdAt: -1})
         .populate('userId')
+        .skip(skip)
+        .limit(limit)
         .then(posts=> {
             res.json(posts);
         })
