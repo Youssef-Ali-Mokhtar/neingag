@@ -1,4 +1,6 @@
 const Post = require('../models/postModel');
+const { getUserSocket } = require('../socketManager');
+const { getIo } = require('../socket');
 
 const getPosts = (req, res)=> {
     const page = parseInt(req.query.page) || 1;
@@ -119,12 +121,21 @@ const getUserPosts = (req, res)=> {
 
 const postComment = (req, res)=> {
     const postId = req.params.id;
-    const userId = req.user._id;
+    const CommentCreatorId = req.user._id;
     const comment = req.body.comment;
 
-    Post.postComment(postId, userId, comment)
+    Post.postComment(postId, CommentCreatorId, comment)
         .then(updatedPost=> {
-            console.log(updatedPost);
+            const commentObj = {
+                postId: postId,
+                CommentCreatorId: CommentCreatorId,
+                comment: comment
+            };
+            getIo().to(getUserSocket(updatedPost.userId)).emit('newComment', {
+                action: 'postComment',
+                commentObj
+            });
+ 
             res.json(updatedPost);
         })
 }
