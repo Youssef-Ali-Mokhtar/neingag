@@ -29,11 +29,9 @@ const CommentInput = ({ refetch }) => {
             body: JSON.stringify({ comment: comment })
         })
         .then(response=> {
-            console.log(response);
             return response.json();
         })
         .then(data=> {
-            console.log(data);
             refetch();
             setComment('');
         })

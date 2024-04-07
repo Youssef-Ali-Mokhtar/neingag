@@ -15,5 +15,5 @@
     font-weight: bold;
     color: var(--color-faint);
     box-sizing: border-box;
-    background-color: var(--color-background-secondary);
+    background-color: black;
 }

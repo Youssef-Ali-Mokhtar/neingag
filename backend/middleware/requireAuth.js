@@ -16,7 +16,7 @@ const requireAuth = (req, res, next)=> {
                 console.log(user);
                 next();
             })
-            .catch(err=>{
+            .catch(err=> {
                 console.log(err);
             })
             

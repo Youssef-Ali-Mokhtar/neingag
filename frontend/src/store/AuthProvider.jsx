@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { authContext } from "./auth-context";
+import openSocket from 'socket.io-client';
 
 const reducerValue = {
     user: null
@@ -21,7 +22,28 @@ const AuthProvider = ({ children }) => {
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('user'));
+
+        let socket;
+
+        if(user) {
+            console.log("SOCKET!!");
+            socket = openSocket('http://localhost:4000', {
+                query: { token:user.token }
+            });
+
+            socket.on('newComment', (data) => {
+                console.log('Received a comment:', data);
+                // Do something with the received message, e.g., display it on the UI
+              });
+
+        }
+
         dispatch({type: 'LOGIN', payload: user})
+
+        return () => {
+            // Clean up the socket connection when component unmounts
+            socket.disconnect();
+          };
     }, []);
 
 
