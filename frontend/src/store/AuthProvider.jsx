@@ -20,18 +20,40 @@ const authReducer = (state, action)=> {
 
 const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, reducerValue);
-    const { 
+    const {
         notifications,
-        addNotification
+        addNotification,
+        resetNotifications
     } = useNoteContext();
 
-    useEffect(()=>{
-        const user = JSON.parse(localStorage.getItem('user'));
+    const fetchUncheckedNotifications = (user) => {
+        resetNotifications();
 
+        fetch(`http://localhost:4000/api/users/unchecked-notifications`, {
+            headers: {
+                'Authorization': `Bearer ${user?.token}`
+            }
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(numOfUncheckedNotifications => {
+                addNotification(numOfUncheckedNotifications);
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
+    }
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
         let socket;
 
         if(user) {
-            console.log("SOCKET!!");
+
+            //fetch unchecked notifications
+            fetchUncheckedNotifications(user);
+
             socket = openSocket('http://localhost:4000', {
                 query: { token:user.token }
             });
@@ -39,7 +61,7 @@ const AuthProvider = ({ children }) => {
             socket.on('newComment', (data) => {
                 console.log('Received a comment:', data);
                 console.log(notifications);
-                addNotification();
+                addNotification(1);
               });
 
         }
@@ -52,14 +74,15 @@ const AuthProvider = ({ children }) => {
           };
     }, []);
 
-
     const handleLogin = (userData)=> {
         localStorage.setItem('user',JSON.stringify(userData));
+        fetchUncheckedNotifications(userData);
         dispatch({type: 'LOGIN', payload: userData})
     }
 
     const handleLogout = ()=> {
         localStorage.setItem('user', null);
+        resetNotifications();
         dispatch({type: 'LOGOUT'});
     }
 

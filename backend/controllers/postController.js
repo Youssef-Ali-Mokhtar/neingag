@@ -133,11 +133,15 @@ const postComment = (req, res)=> {
                 comment: comment
             };
 
-            getIo().to(getUserSocket(updatedPost.userId)).emit('newComment', {
-                action: 'postComment',
-                commentObj
-            });
-            console.log('LAST COMMENT', updatedPost.comments.at(-1));
+            const isOP = updatedPost.userId.toString() === req.user._id.toString();
+            
+            if(!isOP) {
+                getIo().to(getUserSocket(updatedPost.userId)).emit('newComment', {
+                    action: 'postComment',
+                    commentObj
+                });
+            }
+
             const lastComment = updatedPost.comments.at(-1);
             const commentId = lastComment._id;
 
@@ -145,10 +149,9 @@ const postComment = (req, res)=> {
                 commentId,
                 postId
             }
-            return User.addToNotifications(notificationObj, updatedPost.userId);
+            return User.addToNotifications(notificationObj, updatedPost.userId, isOP);
         })
         .then(user => {
-            console.log('USER NOTIFICATIONS: ', user.notifications);
             res.json("Comment added successfully!");
         })
         .catch(err=>{

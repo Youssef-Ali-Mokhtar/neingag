@@ -46,7 +46,10 @@ const userSchema = new Schema({
             type: Date,
             default: Date.now // Set the default value to the current date and time
         }
-    }] 
+    }],
+    uncheckedNotifications: {
+        type: Number
+    }
     
 }, {timestamps:true});
 
@@ -73,13 +76,16 @@ userSchema.methods.addToBookmarks = function(post) {
 
 }
 
-userSchema.statics.addToNotifications = function(comment, postCreatorId) {
+userSchema.statics.addToNotifications = function(comment, postCreatorId, isOP) {
     //comment = {commentId, postId}
     console.log('WOOW');
     return this.findById(postCreatorId)
         .then(user => {
             const updatedNotifications = [...user.notifications, comment];
             user.notifications = updatedNotifications;
+            if(!isOP) {
+                user.uncheckedNotifications += 1;
+            }
             console.log("FROM INSIDE:", user);
             return user.save();
         })
@@ -128,14 +134,23 @@ userSchema.statics.signup = function(username, email, password, bio, avatarNum) 
             return bcrypt.hash(password, salt);
         })
         .then(hashedPassword => {
-            return this.create({ username, email, password: hashedPassword, bio, avatarNum, bookmarks: [], notifications: [] });
+            return this.create({ 
+                username, 
+                email, 
+                password: hashedPassword, 
+                bio, 
+                avatarNum, 
+                bookmarks: [], 
+                notifications: [],
+                uncheckedNotifications: 0
+             });
         });
 };
 
 userSchema.statics.login = function(email, password) {
 
     const validateLogin = () => {
-        return new Promise((resolve, reject) => { 
+        return new Promise((resolve, reject) => {
             if (!email || !password) {
                 reject(Error('All fields must be filled.'));
             }
@@ -144,7 +159,7 @@ userSchema.statics.login = function(email, password) {
     };
 
     return validateLogin()
-        .then(()=>{
+        .then(() => {
             return this.findOne({email});
         }) 
         .then(user=>{
@@ -153,7 +168,7 @@ userSchema.statics.login = function(email, password) {
             }
 
             return bcrypt.compare(password, user.password.toString())
-                .then(match=>{
+                .then(match => {
                     if(!match) {
                         throw Error("Incorrect password.");
                     }

@@ -7,15 +7,13 @@ import PCProfile from './profile-list/PCProfile';
 import { useState, useRef, useEffect } from 'react';
 import Authentication from '../components/login/Authentication';
 import { useAuthModalContext } from './../hooks/useAuthModalContext';
-import { useNoteContext } from './../hooks/useNoteContext';
 
 const Navbar = () => {
     const [notifications, setNotifications] = useState(false);
     const [profile, setProfile] = useState(false);
 
     const { authModal } = useAuthModalContext();
-    const { notifications: notificationsCtx } = useNoteContext();
-    console.log(useNoteContext());
+
     const notificationRef = useRef();
     const notificationBtnRef = useRef();
 
@@ -61,12 +59,10 @@ const Navbar = () => {
           document.removeEventListener('click', closeProfileMenu);
         };
     }, []);
-    
-    console.log(notificationsCtx);
+
     return ( <div className={NavbarClasses['navbar']}>
         <NavbarLogo/>
         <SearchBar/>
-        <p style={{'color':'white'}}>{notificationsCtx}</p>
         <NavbarButtons
             setNotifications={handleNotifications}
             setProfile={handleProfile}

@@ -182,6 +182,23 @@ const getAllNotifications = (req, res) => {
         })
 }
 
+const resetUncheckedNotifications = (req, res) => {
+
+    req.user.uncheckedNotifications = 0;
+
+    req.user.save()
+        .then(user => {
+            res.json("Successfully reset unchecked notifications.");
+        })
+        .catch(err => {
+            res.json(err.message);
+        })
+}
+
+const getUncheckedNotifications = (req, res) => {
+    res.json(req.user.uncheckedNotifications);
+}
+
 module.exports = {
     getUser,
     updateUser,
@@ -190,5 +207,7 @@ module.exports = {
     checkBookmark,
     signupUser,
     loginUser,
-    getAllNotifications
+    getAllNotifications,
+    resetUncheckedNotifications,
+    getUncheckedNotifications
 }

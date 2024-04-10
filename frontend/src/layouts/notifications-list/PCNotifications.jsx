@@ -8,13 +8,15 @@ import { useNoteContext } from './../../hooks/useNoteContext';
 const PCNotifications = (props, ref) => {
     const [notifications, setNotifications] = useState([]);
     const { user } = useAuthContext();
-    const { resetNotifications } = useNoteContext();
+    const {
+        notifications: notificationsNum,
+        resetNotifications
+     } = useNoteContext();
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const targetRef = useRef(null);
 
     useEffect(() => {
-        resetNotifications();
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting ) {
@@ -70,7 +72,33 @@ const PCNotifications = (props, ref) => {
                 console.log(err);
             })
     }, [user, page])
-    console.log(notifications);
+
+    useEffect(() => {
+        
+        const resetUncheckedNotifications = () => {
+            fetch(`http://localhost:4000/api/users/unchecked-notifications?`, {
+                method:'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${user?.token}`
+                }
+            })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    resetNotifications();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+        if(notificationsNum > 0) {
+            resetUncheckedNotifications();
+        }
+
+    }, [user, notificationsNum])
+
 
     return ( <div className={PCNotificationsClasses['notifications']} ref={ref}>
         {

@@ -4,9 +4,9 @@ import { useState } from 'react';
 const NoteProvider = ({ children }) => {
     const [notifications, setNotifications] = useState(0);
 
-    const addNotification = ()=> {
+    const addNotification = (num)=> {
         console.log("NOTIFICATION ADDED");
-        setNotifications(prev=>prev+1);
+        setNotifications(prev=>prev+num);
     }
 
     const resetNotifications = ()=> {

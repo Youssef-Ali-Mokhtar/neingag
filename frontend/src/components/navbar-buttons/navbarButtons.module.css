@@ -45,11 +45,42 @@ a {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    position: relative;
 }
+
 .notification-icon {
     width: 30px;
     height: 30px;
 }
+
+.notification-count {
+  /* position: absolute;
+  width: 15px;
+  height: 12px;
+  top: 4px;
+  right: -4px;
+  background-color: red;
+  color: white;
+  border-radius: 8px;
+  font-size: 9px;
+  text-align: center;
+  cursor: pointer; */
+  top: 5px;
+  right: -1px;
+  width: 15px;
+  height: 12px;
+  display: block;
+  position: absolute;
+  background-color: #ff3b30;
+  border-radius: 8px;
+  line-height: 12px;
+  font-size: 10px;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+}
+
 
 .notification-button:hover {
     background-color: var(--color-hover);
