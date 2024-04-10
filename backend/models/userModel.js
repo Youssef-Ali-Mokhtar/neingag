@@ -28,20 +28,31 @@ const userSchema = new Schema({
         required: true,
     },
     bookmarks:  [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Post'
-            }
-        ]
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ],
+    notifications: [{
+        postId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        },
+        commentId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Post', // Reference to the Post model
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now // Set the default value to the current date and time
+        }
+    }] 
     
 }, {timestamps:true});
 
 userSchema.methods.addToBookmarks = function(post) {
 
-    console.log("Inside addToBookmarks: ", this);
-
     const bookmarkPostIndex = this.bookmarks.findIndex(bp=>{
-        console.log("Inside loop:", bp);
         return bp.toString() === post._id.toString();
     });
 
@@ -60,6 +71,18 @@ userSchema.methods.addToBookmarks = function(post) {
 
     return this.save();
 
+}
+
+userSchema.statics.addToNotifications = function(comment, postCreatorId) {
+    //comment = {commentId, postId}
+    console.log('WOOW');
+    return this.findById(postCreatorId)
+        .then(user => {
+            const updatedNotifications = [...user.notifications, comment];
+            user.notifications = updatedNotifications;
+            console.log("FROM INSIDE:", user);
+            return user.save();
+        })
 }
 
 userSchema.statics.signup = function(username, email, password, bio, avatarNum) {
@@ -105,7 +128,7 @@ userSchema.statics.signup = function(username, email, password, bio, avatarNum) 
             return bcrypt.hash(password, salt);
         })
         .then(hashedPassword => {
-            return this.create({ username, email, password: hashedPassword, bio, avatarNum, bookmarks: [] });
+            return this.create({ username, email, password: hashedPassword, bio, avatarNum, bookmarks: [], notifications: [] });
         });
 };
 

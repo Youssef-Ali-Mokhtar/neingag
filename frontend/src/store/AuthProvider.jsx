@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { authContext } from "./auth-context";
 import openSocket from 'socket.io-client';
+import { useNoteContext } from './../hooks/useNoteContext';
 
 const reducerValue = {
     user: null
@@ -19,6 +20,10 @@ const authReducer = (state, action)=> {
 
 const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, reducerValue);
+    const { 
+        notifications,
+        addNotification
+    } = useNoteContext();
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('user'));
@@ -33,7 +38,8 @@ const AuthProvider = ({ children }) => {
 
             socket.on('newComment', (data) => {
                 console.log('Received a comment:', data);
-                // Do something with the received message, e.g., display it on the UI
+                console.log(notifications);
+                addNotification();
               });
 
         }

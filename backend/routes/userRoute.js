@@ -6,7 +6,8 @@ const {
     getAllBookmarks,
     checkBookmark,
     loginUser,
-    signupUser
+    signupUser,
+    getAllNotifications
 } = require('../controllers/userController');
 
 const requireAuth = require('./../middleware/requireAuth');
@@ -29,5 +30,6 @@ router.get('/bookmarks', getAllBookmarks);
 
 router.get('/bookmarks/:id', checkBookmark);
 
+router.get('/notifications', getAllNotifications);
 
 module.exports = router;

@@ -2,18 +2,20 @@ import NavbarClasses from './navbar.module.css';
 import SearchBar from '../components/search-bar/SearchBar';
 import NavbarButtons from '../components/navbar-buttons/NavbarButtons';
 import NavbarLogo from '../components/navbar-logo/NavbarLogo';
-import PCNotifications from './notifications-list/pc/PCNotifications';
+import PCNotifications from './notifications-list/PCNotifications';
 import PCProfile from './profile-list/PCProfile';
 import { useState, useRef, useEffect } from 'react';
 import Authentication from '../components/login/Authentication';
 import { useAuthModalContext } from './../hooks/useAuthModalContext';
+import { useNoteContext } from './../hooks/useNoteContext';
 
 const Navbar = () => {
     const [notifications, setNotifications] = useState(false);
     const [profile, setProfile] = useState(false);
 
     const { authModal } = useAuthModalContext();
-
+    const { notifications: notificationsCtx } = useNoteContext();
+    console.log(useNoteContext());
     const notificationRef = useRef();
     const notificationBtnRef = useRef();
 
@@ -21,7 +23,6 @@ const Navbar = () => {
     const profileBtnRef = useRef();
 
     const handleNotifications = ()=> {
-
         setNotifications(prev=>!prev);
     }
 
@@ -61,10 +62,11 @@ const Navbar = () => {
         };
     }, []);
     
-    
+    console.log(notificationsCtx);
     return ( <div className={NavbarClasses['navbar']}>
         <NavbarLogo/>
         <SearchBar/>
+        <p style={{'color':'white'}}>{notificationsCtx}</p>
         <NavbarButtons
             setNotifications={handleNotifications}
             setProfile={handleProfile}

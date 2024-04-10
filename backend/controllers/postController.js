@@ -1,4 +1,5 @@
 const Post = require('../models/postModel');
+const User = require('../models/userModel');
 const { getUserSocket } = require('../socketManager');
 const { getIo } = require('../socket');
 
@@ -131,12 +132,27 @@ const postComment = (req, res)=> {
                 CommentCreatorId: CommentCreatorId,
                 comment: comment
             };
+
             getIo().to(getUserSocket(updatedPost.userId)).emit('newComment', {
                 action: 'postComment',
                 commentObj
             });
- 
-            res.json(updatedPost);
+            console.log('LAST COMMENT', updatedPost.comments.at(-1));
+            const lastComment = updatedPost.comments.at(-1);
+            const commentId = lastComment._id;
+
+            const notificationObj = {
+                commentId,
+                postId
+            }
+            return User.addToNotifications(notificationObj, updatedPost.userId);
+        })
+        .then(user => {
+            console.log('USER NOTIFICATIONS: ', user.notifications);
+            res.json("Comment added successfully!");
+        })
+        .catch(err=>{
+            res.json(err.message);
         })
 }
 

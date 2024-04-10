@@ -63,7 +63,7 @@ const getUser = (req, res)=> {
 }
 
 const updateUser = (req, res)=> {
-    console.log(req.user._id);
+
     const {
         username,
         bio,
@@ -105,27 +105,81 @@ const getAllBookmarks = (req, res) => {
     const skip = (page - 1) * limit;
 
     User.findById(req.user._id)
-        .populate({
+    .select('bookmarks')
+    .populate({
         path: 'bookmarks',
         options: { 
             sort: { createdAt: -1 },
-            populate: { path: 'userId' }
+            populate: { path: 'userId' },
+            skip: skip,
+            limit: limit
         }
     })
-        .skip(skip)
-        .limit(limit)
-        .then(user=> {
-            res.json(user.bookmarks);
-        })
-        .catch(err=> {
-            res.json(err);
-        })
+    .then(user => {
+        const bookmarks = user.bookmarks;
+        res.json(bookmarks);
+    })
+    .catch(err => {
+        res.json(err);
+    });
 }
 
 const checkBookmark = (req, res)=> {
     const bookmarkId = req.params.id;
     const isBookmark = req.user.bookmarks.includes(bookmarkId);
     res.json(isBookmark);
+}
+
+const getAllNotifications = (req, res) => {
+    
+    const page = parseInt(req.query.page) || 1;
+    const limit = 9;
+    const skip = (page - 1) * limit;
+
+    User.findById(req.user._id)
+    .select('notifications')
+    .populate({
+        path: 'notifications',
+        populate: {
+            path: 'postId',
+            select: 'comments',
+            populate: {
+                path: 'comments.userId',
+                model: 'User',
+                select: 'username avatarNum',
+            },
+        }
+    })
+        .then(user => {
+
+            user.notifications.sort((a, b) => b.createdAt - a.createdAt);
+
+            const paginatedNotifications = user.notifications.slice(skip, skip + limit);
+
+            return paginatedNotifications;
+        })
+        .then(notifications => {
+            console.log(notifications);
+            const comments = notifications.map(item => {
+                const stuff = item.postId.comments.find(postComments => {
+                    return postComments._id.toString() === item.commentId.toString();
+                });
+
+                const commentObject = {
+                    comment:stuff.comment,
+                    userId: stuff.userId,
+                    postId: item.postId._id,
+                    _id: stuff._id,
+                    createdAt:stuff.createdAt
+                }
+                return commentObject;
+            })
+            
+            res.json(comments);
+        })
+        .catch(err=> {
+            res.json(err);
+        })
 }
 
 module.exports = {
@@ -135,5 +189,6 @@ module.exports = {
     getAllBookmarks,
     checkBookmark,
     signupUser,
-    loginUser
+    loginUser,
+    getAllNotifications
 }
