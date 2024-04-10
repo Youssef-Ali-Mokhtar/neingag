@@ -1,4 +1,5 @@
 const Post = require('../models/postModel');
+const User = require('../models/userModel');
 const { getUserSocket } = require('../socketManager');
 const { getIo } = require('../socket');
 
@@ -131,12 +132,30 @@ const postComment = (req, res)=> {
                 CommentCreatorId: CommentCreatorId,
                 comment: comment
             };
-            getIo().to(getUserSocket(updatedPost.userId)).emit('newComment', {
-                action: 'postComment',
-                commentObj
-            });
- 
-            res.json(updatedPost);
+
+            const isOP = updatedPost.userId.toString() === req.user._id.toString();
+            
+            if(!isOP) {
+                getIo().to(getUserSocket(updatedPost.userId)).emit('newComment', {
+                    action: 'postComment',
+                    commentObj
+                });
+            }
+
+            const lastComment = updatedPost.comments.at(-1);
+            const commentId = lastComment._id;
+
+            const notificationObj = {
+                commentId,
+                postId
+            }
+            return User.addToNotifications(notificationObj, updatedPost.userId, isOP);
+        })
+        .then(user => {
+            res.json("Comment added successfully!");
+        })
+        .catch(err=>{
+            res.json(err.message);
         })
 }
 

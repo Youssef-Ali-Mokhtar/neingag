@@ -5,17 +5,21 @@ import App from './App';
 import DrawerProvider from './store/DrawerProvider';
 import AuthModalProvider from './store/AuthModalProvider';
 import AuthProvider from './store/AuthProvider';
+import NoteProvider from './store/NoteProvider';
 import {BrowserRouter} from 'react-router-dom';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <AuthProvider>
-        <AuthModalProvider>
-            <DrawerProvider>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </DrawerProvider>
-        </AuthModalProvider>
-    </AuthProvider>
+    <NoteProvider>
+        <AuthProvider>
+            <AuthModalProvider>
+                <DrawerProvider>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </DrawerProvider>
+            </AuthModalProvider>
+        </AuthProvider>
+    </NoteProvider>
 );

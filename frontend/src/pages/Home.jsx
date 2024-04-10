@@ -49,9 +49,7 @@ const Home = () => {
 
     console.log(posts.length);
     return ( <div className={HomeClasses['home']}>
-        {/* {
-            loading && !error && <h1>Loading...</h1>
-        } */}
+
         {
             !loading && !error &&
             <InfiniteScroll
@@ -64,9 +62,7 @@ const Home = () => {
                 <PostsList posts={posts}/>
             </InfiniteScroll>
         }
-        {/* {
-            !loading && error && <h1>{error}</h1>
-        } */}
+
     </div> );
 }
  

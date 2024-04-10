@@ -2,7 +2,7 @@ import NavbarClasses from './navbar.module.css';
 import SearchBar from '../components/search-bar/SearchBar';
 import NavbarButtons from '../components/navbar-buttons/NavbarButtons';
 import NavbarLogo from '../components/navbar-logo/NavbarLogo';
-import PCNotifications from './notifications-list/pc/PCNotifications';
+import PCNotifications from './notifications-list/PCNotifications';
 import PCProfile from './profile-list/PCProfile';
 import { useState, useRef, useEffect } from 'react';
 import Authentication from '../components/login/Authentication';
@@ -21,7 +21,6 @@ const Navbar = () => {
     const profileBtnRef = useRef();
 
     const handleNotifications = ()=> {
-
         setNotifications(prev=>!prev);
     }
 
@@ -60,8 +59,7 @@ const Navbar = () => {
           document.removeEventListener('click', closeProfileMenu);
         };
     }, []);
-    
-    
+
     return ( <div className={NavbarClasses['navbar']}>
         <NavbarLogo/>
         <SearchBar/>

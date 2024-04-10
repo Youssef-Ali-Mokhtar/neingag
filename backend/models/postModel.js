@@ -54,7 +54,7 @@ postSchema.statics.deletePost = function(postId, userId) {
 postSchema.statics.postComment = function(postId, userId, comment) {
 
     return this.findOne({_id:postId})
-        .then(post=>{
+        .then(post => {
             const updatedComments = [...post.comments, {comment, userId}];
             post.comments = updatedComments;
             return post.save();
