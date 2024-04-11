@@ -2,9 +2,16 @@ import CommentClasses from './../post.module.css';
 import { extractAvatar } from '../../../util/utilFunctions';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../../util/utilFunctions';
+import DeleteButton from './DeleteButton';
+import { useAuthContext } from './../../../hooks/useAuthContext';
 
-const Comment = ({comment}) => {
-    return ( <div className={CommentClasses['comment-container']}>
+const Comment = ({comment, refetch}) => {
+    const { user } = useAuthContext();
+    const isAuthorized = user?.userId === comment.userId._id;
+
+    console.log(comment._id);
+
+    return ( <div id = {comment._id} className={CommentClasses['comment-container']}>
         <Link to={`/profile/${comment.userId._id}`}>
             <img src={extractAvatar(comment.userId.avatarNum)} alt="pic"/>
         </Link>
@@ -15,6 +22,13 @@ const Comment = ({comment}) => {
             </Link>
             <p className={CommentClasses['comment']}>{comment.comment}</p>
         </div>
+        {
+            isAuthorized &&
+            <DeleteButton 
+                commentId={comment._id} 
+                refetch={refetch} />
+        }
+        
     </div> );
 }
  

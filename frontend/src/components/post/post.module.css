@@ -162,6 +162,11 @@
     box-sizing: border-box;
 }
 
+.delete-button {
+    color: var(--color-faint);
+    cursor: pointer;
+}
+
 .comment-input-container {
     width: 100%;
     height: fit-content;
@@ -169,7 +174,6 @@
     align-items: flex-start;
     box-sizing: border-box;
     padding-top: 10px;
-
 }
 
 .comment-input-container img {

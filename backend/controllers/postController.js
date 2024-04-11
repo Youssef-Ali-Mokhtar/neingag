@@ -94,13 +94,21 @@ const postPost = (req, res)=> {
         })
 }
 
-const deletePost = (req, res)=> {
+
+const deletePost = (req, res) => {
     const id = req.params.id;
     Post.deletePost(id, req.user._id)
-        .then(response=> {
-            res.status(200).json(response);
+        .then(post => {
+            const commentIds = post.comments.map(item => {
+                return item._id;
+            })
+
+            return User.deleteNotifications(req.user._id, commentIds);
         })
-        .catch(err=> {
+        .then(user => {
+            res.json(user.notifications);
+        })
+        .catch(err => {
             console.log(err.message);
             res.status(401).json(err.message);
         })
@@ -126,7 +134,7 @@ const postComment = (req, res)=> {
     const comment = req.body.comment;
 
     Post.postComment(postId, CommentCreatorId, comment)
-        .then(updatedPost=> {
+        .then(updatedPost => {
             const commentObj = {
                 postId: postId,
                 CommentCreatorId: CommentCreatorId,
@@ -159,6 +167,24 @@ const postComment = (req, res)=> {
         })
 }
 
+const deleteComment = (req, res) => {
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+    const userId = req.user._id;
+
+    Post.deleteComment(postId, commentId, userId)
+        .then(post => {
+            return User.deleteNotifications(post.userId, [commentId]);
+        })
+        .then(user => {
+            console.log("NOTIFICATIONS AFTER", user.notifications);
+            res.json("Comment deleted successfully.");
+        })
+        .catch(err => {
+            res.json(err.message);
+        })
+}
+
 
 module.exports = {
     postPost,
@@ -168,5 +194,6 @@ module.exports = {
     getUserPosts,
     getSpecificPosts,
     searchPosts,
-    postComment
+    postComment,
+    deleteComment
 }
