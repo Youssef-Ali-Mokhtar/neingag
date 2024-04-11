@@ -1,6 +1,7 @@
 import PostClasses from './post.module.css';
 import { Link } from 'react-router-dom';
 import PostHeader from './post-details/PostHeader';
+import PostBar from './post-details/PostBar';
 
 const Post = ({post, isLast}) => {
 
@@ -12,7 +13,7 @@ const Post = ({post, isLast}) => {
             <Link to={`/${post._id}`}><h1 className={PostClasses['post-title']}>{post.title}</h1></Link>
             <p className={PostClasses['post-description']}>{post.description}</p>
         </div>
-
+        <PostBar post={post}/>
     </div> );
 }
 

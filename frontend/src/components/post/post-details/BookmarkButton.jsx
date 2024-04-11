@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useParams } from "react-router-dom";
 
-const BookmarkButton = () => {
+const BookmarkButton = ({ postId }) => {
     const [bookmark, setBookmark] = useState(false);
     const { user } = useAuthContext();
-    const { id } = useParams();
-
+    const id = useParams().id || postId;
+    // const postId = id ||
     const handleBookmark = ()=> {
         fetch(`http://localhost:4000/api/users/bookmarks`, {
             method: 'POST',
