@@ -7,7 +7,7 @@
     height: fit-content;
     margin:5px;
     padding: 10px;
-    border-bottom: 1px solid var(--color-border);
+    /* border-bottom: 1px solid var(--color-border); */
 }
 
 .post-content-holder {
