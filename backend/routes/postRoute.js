@@ -7,7 +7,8 @@ const {
     getUserPosts,
     getSpecificPosts,
     searchPosts,
-    postComment
+    postComment,
+    deleteComment
 } = require('../controllers/postController');
 
 const requireAuth = require('./../middleware/requireAuth');
@@ -31,6 +32,9 @@ router.post('/', postPost);
 router.delete('/:id', deletePost);
 
 router.patch('/:id/comments/', postComment);
+
+router.delete('/:postId/:commentId/', deleteComment);
+
 
 
 module.exports = router;

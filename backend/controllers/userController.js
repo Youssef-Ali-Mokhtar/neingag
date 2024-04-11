@@ -135,7 +135,7 @@ const getAllNotifications = (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = 9;
     const skip = (page - 1) * limit;
-
+    
     User.findById(req.user._id)
     .select('notifications')
     .populate({
@@ -151,7 +151,6 @@ const getAllNotifications = (req, res) => {
         }
     })
         .then(user => {
-
             user.notifications.sort((a, b) => b.createdAt - a.createdAt);
 
             const paginatedNotifications = user.notifications.slice(skip, skip + limit);
@@ -159,11 +158,14 @@ const getAllNotifications = (req, res) => {
             return paginatedNotifications;
         })
         .then(notifications => {
-            console.log(notifications);
-            const comments = notifications.map(item => {
+            
+            let comments = notifications.map(item => {
+                if(!item.postId) return null;
                 const stuff = item.postId.comments.find(postComments => {
                     return postComments._id.toString() === item.commentId.toString();
                 });
+                
+                if(!stuff) return null;
 
                 const commentObject = {
                     comment:stuff.comment,
@@ -172,9 +174,12 @@ const getAllNotifications = (req, res) => {
                     _id: stuff._id,
                     createdAt:stuff.createdAt
                 }
+
                 return commentObject;
             })
-            
+
+            comments = comments.filter(comment => comment);
+
             res.json(comments);
         })
         .catch(err=> {

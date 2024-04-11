@@ -91,6 +91,23 @@ userSchema.statics.addToNotifications = function(comment, postCreatorId, isOP) {
         })
 }
 
+userSchema.methods.deleteNotifications = function(userId, commentIds) {
+
+    const commentIdsString = commentIds.map(commentId => {
+        return commentId.toString();
+    })
+
+    return this.findById(userId)
+        .then(user => {
+            const updatedNotifications = user.notifications.filter(note => {
+                return !commentIdsString.includes(note.commentId.toString());
+            })
+            user.notifications = updatedNotifications;
+            return user.save();
+        })
+
+}
+
 userSchema.statics.signup = function(username, email, password, bio, avatarNum) {
 
     const validateSignup = () => {

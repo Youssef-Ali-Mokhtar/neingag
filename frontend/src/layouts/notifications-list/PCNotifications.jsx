@@ -57,6 +57,7 @@ const PCNotifications = (props, ref) => {
                 return response.json();
             })
             .then(data => {
+                console.log(data);
                 if(!data.length) {
                     setHasMore(false);
                 }else {
@@ -99,7 +100,7 @@ const PCNotifications = (props, ref) => {
 
     }, [user, notificationsNum])
 
-
+    console.log(notifications);
     return ( <div className={PCNotificationsClasses['notifications']} ref={ref}>
         {
             notifications.map(note => {
