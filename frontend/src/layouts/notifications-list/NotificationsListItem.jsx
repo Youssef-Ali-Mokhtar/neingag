@@ -29,11 +29,11 @@ const NotificationsListItem = ({ note }) => {
             <div className={NotificationsClasses['notification-text-container']}>
                 <p
                     className={NotificationsClasses['notification-username']}>
-                    {note?.userId.username}  
-                    <span> {formatDate(note.createdAt)}</span>
+                    {note?.userId.username}
                 </p>
                 <p>
-                    {comment}{comment.length === 60? '... ':' ' } 
+                    {comment}{comment.length === 60? '... ':' ' }
+                    <span> {formatDate(note.createdAt)}</span>
                 </p>
             </div>
         

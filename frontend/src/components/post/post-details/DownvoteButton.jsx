@@ -1,36 +1,11 @@
 import { BiDownvote } from "react-icons/bi";
 import { BiSolidDownvote } from "react-icons/bi";
-import { useEffect } from "react";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useParams } from "react-router-dom";
+
 import DownvoteClasses from './../post.module.css';
 
-const DownvoteButton = ({ postId, downvote, setDownvote, handleDownvote, downvoteNum }) => {
-    
-    const { user } = useAuthContext();
-    const id = useParams().id || postId;
+const DownvoteButton = ({ downvote, handleDownvote, downvoteNum }) => {
 
-    useEffect(()=>{
-        const setUpvoteInitialState = ()=>{
-            fetch(`http://localhost:4000/api/users/downvotes/${id}`, {
-                headers: {
-                    'Authorization':`Bearer ${user?.token}`
-                }
-            })
-            .then(response=> {
-                return response.json();
-            })
-            .then(isDownvoted=> {
-                setDownvote(isDownvoted);
-            })
-            .catch(err=> {
-                console.log(err);
-            })
-        }
-        setUpvoteInitialState();
-
-    }, [id, user?.token]);
-
+    const isPressedClass = downvote? DownvoteClasses['pressed']:'';
 
     const downvoteCheckedIcon = (
         <BiDownvote
@@ -43,7 +18,7 @@ const DownvoteButton = ({ postId, downvote, setDownvote, handleDownvote, downvot
             onClick={handleDownvote}
             size={20}
         />)
-    return ( <div className={DownvoteClasses['vote-button']}>
+    return ( <div className={`${DownvoteClasses['vote-button']} ${isPressedClass}`}>
         {downvote? downvoteUncheckedIcon:downvoteCheckedIcon }
         <p>{downvoteNum}</p>
     </div> );

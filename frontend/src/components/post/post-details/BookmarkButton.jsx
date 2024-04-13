@@ -4,6 +4,7 @@ import { FaBookmark } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useParams } from "react-router-dom";
+import BookmarkClasses from './../post.module.css';
 
 const BookmarkButton = ({ postId }) => {
     const [bookmark, setBookmark] = useState(false);
@@ -11,6 +12,7 @@ const BookmarkButton = ({ postId }) => {
     const id = useParams().id || postId;
     // const postId = id ||
     const handleBookmark = ()=> {
+        setBookmark(prev=>!prev);
         fetch(`http://localhost:4000/api/users/bookmarks`, {
             method: 'POST',
             headers: {
@@ -25,7 +27,7 @@ const BookmarkButton = ({ postId }) => {
             return response.json();
         })
         .then(data=>{
-            setBookmark(prev=>!prev);
+            console.log(data);
         })
         .catch(err => {
             console.log(err);
@@ -58,6 +60,7 @@ const BookmarkButton = ({ postId }) => {
         <FaBookmark 
             onClick={handleBookmark}
             size={20}
+            className={BookmarkClasses['bookmark']}
         />)
 
     const bookmarkUncheckedIcon = (
