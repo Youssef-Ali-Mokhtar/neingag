@@ -13,7 +13,7 @@ const Post = ({post, isLast}) => {
             <Link to={`/${post._id}`}><h1 className={PostClasses['post-title']}>{post.title}</h1></Link>
             <p className={PostClasses['post-description']}>{post.description}</p>
         </div>
-        <PostBar post={post}/>
+        <PostBar post={post} isPostDetails={false}/>
     </div> );
 }
 

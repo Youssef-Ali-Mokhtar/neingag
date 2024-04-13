@@ -97,7 +97,6 @@ const postBookmark = (req, res)=> {
         })
 }
 
-
 const getAllBookmarks = (req, res) => {
     
     const page = parseInt(req.query.page) || 1;
@@ -204,6 +203,51 @@ const getUncheckedNotifications = (req, res) => {
     res.json(req.user.uncheckedNotifications);
 }
 
+
+const postUpvote = (req, res)=> {
+    Post.findById(req.body.postId)
+        .then(post => {
+            return post.addUserIdToUpvotes(req.user._id);
+        })
+        .then(post => {
+            return req.user.addPostIdToUpvotes(post._id)
+        })
+        .then(response=>{
+            res.json(response);
+        })
+        .catch(err=>{
+            res.json(err);
+        })
+}
+
+const checkUpvote = (req, res)=> {
+    const postId = req.params.id;
+    const isUpvote = req.user.upvotes.includes(postId);
+    res.json(isUpvote);
+}
+
+const postDownvote = (req, res)=> {
+    Post.findById(req.body.postId)
+        .then(post => {
+            return post.addUserIdToDownvotes(req.user._id);
+        })
+        .then(post => {
+            return req.user.addPostIdToDownvotes(post._id);
+        })
+        .then(response=>{
+            res.json(response);
+        })
+        .catch(err=>{
+            res.json(err);
+        })
+}
+
+const checkDownvote = (req, res)=> {
+    const postId = req.params.id;
+    const isDownvote = req.user.downvotes.includes(postId);
+    res.json(isDownvote);
+}
+
 module.exports = {
     getUser,
     updateUser,
@@ -214,5 +258,9 @@ module.exports = {
     loginUser,
     getAllNotifications,
     resetUncheckedNotifications,
-    getUncheckedNotifications
+    getUncheckedNotifications,
+    postUpvote,
+    checkUpvote,
+    postDownvote,
+    checkDownvote,
 }

@@ -51,7 +51,7 @@ const PostDetails = () => {
                     <h1 className={PostDetailsClasses['post-title']}>{post.title}</h1>
                     <p className={PostDetailsClasses['post-description']}>{post.description}</p>
                 </div>
-                <PostBar post={post}/>
+                <PostBar post={post} isPostDetails={true}/>
                 {user && <CommentInput refetch={refetch}/>}
                 <CommentsList 
                   comments={post?.comments}
