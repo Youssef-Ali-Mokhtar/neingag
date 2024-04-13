@@ -231,8 +231,17 @@
 .vote-button {
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+
+.vote-button.pressed {
+    color: var(--color-button);
 }
 
 .vote-button * {
     margin: 0px 4px;
+}
+
+.bookmark {
+    color: var(--color-bookmark);
 }
