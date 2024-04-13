@@ -9,7 +9,11 @@ const {
     signupUser,
     getAllNotifications,
     resetUncheckedNotifications,
-    getUncheckedNotifications
+    getUncheckedNotifications,
+    postUpvote,
+    checkUpvote,
+    postDownvote,
+    checkDownvote
 } = require('../controllers/userController');
 
 const requireAuth = require('./../middleware/requireAuth');
@@ -38,5 +42,12 @@ router.patch('/unchecked-notifications', resetUncheckedNotifications);
 
 router.get('/unchecked-notifications', getUncheckedNotifications);
 
+router.post('/upvotes', postUpvote);
+
+router.get('/upvotes/:id', checkUpvote);
+
+router.post('/downvotes', postDownvote);
+
+router.get('/downvotes/:id', checkDownvote);
 
 module.exports = router;

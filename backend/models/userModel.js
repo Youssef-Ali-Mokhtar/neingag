@@ -49,8 +49,19 @@ const userSchema = new Schema({
     }],
     uncheckedNotifications: {
         type: Number
-    }
-    
+    },
+    upvotes:  [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ],
+    downvotes:  [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ]
 }, {timestamps:true});
 
 userSchema.methods.addToBookmarks = function(post) {
@@ -73,20 +84,60 @@ userSchema.methods.addToBookmarks = function(post) {
     this.bookmarks = updatedPosts;
 
     return this.save();
+}
+
+userSchema.methods.addPostIdToUpvotes = function(postId) {
+
+    const upvoteUserIndex = this.upvotes.findIndex(upvotePostId=>{
+        return upvotePostId.toString() === postId.toString();
+    });
+    
+    let updatedUpvotes;
+
+    if(upvoteUserIndex > -1) {
+        updatedUpvotes = this.upvotes.filter(PID => {
+            return PID.toString() !== postId.toString();
+        })
+    } else {
+        updatedUpvotes = [...this.upvotes, postId];
+    }
+    
+    this.upvotes = updatedUpvotes;
+
+    return this.save();
 
 }
 
-userSchema.statics.addToNotifications = function(comment, postCreatorId, isOP) {
+userSchema.methods.addPostIdToDownvotes = function(postId) {
+
+    const downvotePostIndex = this.downvotes.findIndex(downvotePostId=>{
+        return downvotePostId.toString() === postId.toString();
+    });
+    
+    let updatedDownvotes;
+
+    if(downvotePostIndex > -1) {
+        updatedDownvotes = this.downvotes.filter(PID => {
+            return PID.toString() !== postId.toString();
+        })
+    } else {
+        updatedDownvotes = [...this.downvotes, postId];
+    }
+    
+    this.downvotes = updatedDownvotes;
+
+    return this.save();
+
+}
+
+userSchema.statics.addToNotifications = function(comment, postCreatorId) {
     //comment = {commentId, postId}
-    console.log('WOOW');
+
     return this.findById(postCreatorId)
         .then(user => {
             const updatedNotifications = [...user.notifications, comment];
             user.notifications = updatedNotifications;
-            if(!isOP) {
-                user.uncheckedNotifications += 1;
-            }
-            console.log("FROM INSIDE:", user);
+            user.uncheckedNotifications += 1;
             return user.save();
         })
 }
@@ -159,6 +210,8 @@ userSchema.statics.signup = function(username, email, password, bio, avatarNum) 
                 avatarNum, 
                 bookmarks: [], 
                 notifications: [],
+                upvotes: [],
+                downvotes: [],
                 uncheckedNotifications: 0
              });
         });

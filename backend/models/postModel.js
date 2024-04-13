@@ -36,6 +36,18 @@ const postSchema = new Schema({
                 default: Date.now
             }
         }
+    ],
+    upvotes:  [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    downvotes:  [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
     ]
 }, {timestamps:true});
 
@@ -88,6 +100,50 @@ postSchema.statics.deleteComment = function(postId, commentId, userId) {
             return post.save();
         })
         
+}
+
+postSchema.methods.addUserIdToUpvotes = function(userId) {
+
+    const upvoteUserIndex = this.upvotes.findIndex(upvoteUserId => {
+        return upvoteUserId.toString() === userId.toString();
+    });
+    
+    let updatedUpvotes;
+
+    if(upvoteUserIndex > -1) {
+        updatedUpvotes = this.upvotes.filter(UID => {
+            return UID.toString() !== userId.toString();
+        })
+    } else {
+        updatedUpvotes = [...this.upvotes, userId];
+    }
+    
+    this.upvotes = updatedUpvotes;
+
+    return this.save();
+
+}
+
+postSchema.methods.addUserIdToDownvotes = function(userId) {
+
+    const downvoteUserIndex = this.downvotes.findIndex(downvoteUserId=>{
+        return downvoteUserId.toString() === userId.toString();
+    });
+    
+    let updatedDownvotes;
+
+    if(downvoteUserIndex > -1) {
+        updatedDownvotes = this.downvotes.filter(UID => {
+            return UID.toString() !== userId.toString();
+        })
+    } else {
+        updatedDownvotes = [...this.downvotes, userId];
+    }
+    
+    this.downvotes = updatedDownvotes;
+
+    return this.save();
+
 }
 
 module.exports = mongoose.model('Post', postSchema);

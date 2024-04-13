@@ -3,10 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import deleteButtonClasses from './../post.module.css';
 
-const DeleteButton = ({ commentId, refetch }) => {
+const DeleteButton = ({ commentId, postId, refetch }) => {
     const navigate = useNavigate();
     const { user } = useAuthContext();
-    const { id } = useParams();
+    const id = useParams().id || postId;
     
     const handleDelete = () => {
         console.log(commentId);

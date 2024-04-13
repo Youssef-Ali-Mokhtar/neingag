@@ -57,8 +57,8 @@
     align-items: center;
 }
 
-.post-bar-sub *{
-    margin: 0px 10px;
+.post-bar-sub > * {
+    margin: 0px 5px;
     cursor: pointer;
     color: var(--color-post-icon);
     padding: 5px 0px;
@@ -226,4 +226,13 @@
     user-select: none;
     border: none;
     color: var(--color-font-primary);
+}
+
+.vote-button {
+    display: flex;
+    flex-direction: row;
+}
+
+.vote-button * {
+    margin: 0px 4px;
 }
