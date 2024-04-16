@@ -1,11 +1,12 @@
 import { FaRegCommentAlt } from "react-icons/fa";
 import CommentButtonClasses from './../post.module.css';
+import { Link } from 'react-router-dom';
 
-const CommentButton = ({commentsNum}) => {
-    return ( <div className={CommentButtonClasses['vote-button']}>
+const CommentButton = ({commentsNum, postId}) => {
+    return ( <Link to={`/${postId}`} className={CommentButtonClasses['vote-button']}>
         <FaRegCommentAlt size={20}/>
         <p>{commentsNum}</p>
-    </div> );
+    </Link> );
 }
  
 export default CommentButton;

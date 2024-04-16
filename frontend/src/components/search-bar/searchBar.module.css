@@ -1,6 +1,6 @@
 .search-bar {
-    width: 600px;
-    min-width: 100px;
+    width: 100%;
+    max-width: 600px;
     height: 40px;
     background-color: var(--color-background-secondary);
     border-radius: 50px;
@@ -38,4 +38,22 @@
     outline: none;
     border: none;
     color: var(--color-icon);
+}
+
+@media screen and (max-width: 600px) {
+    .search-bar {
+        width: 90%;
+        height: 32px;
+        padding:0px 7px;
+        margin-top: 4px;
+    }
+
+    .search-bar input {
+        font-size: 14px;
+    }
+
+    .search-icon {
+        padding-right: 4px;
+    }
+
 }

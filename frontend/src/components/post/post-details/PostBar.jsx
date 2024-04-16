@@ -24,25 +24,28 @@ const PostBar = ({ post, isPostDetails }) => {
     const isPostOwner = postUserId === currentUserId;
 
 
-    useEffect(()=>{
-        const setDownvoteInitialState = ()=>{
+    useEffect(() => {
+        const setDownvoteInitialState = () => {
             fetch(`http://localhost:4000/api/users/downvotes/${id}`, {
                 headers: {
                     'Authorization':`Bearer ${user?.token}`
                 }
             })
-            .then(response=> {
+            .then(response => {
                 return response.json();
             })
-            .then(isDownvoted=> {
+            .then(isDownvoted => {
                 setDownvote(isDownvoted);
             })
             .catch(err=> {
                 console.log(err);
             })
         }
-        setDownvoteInitialState();
-        console.log("SHIT");
+
+        if(user) {
+            setDownvoteInitialState();
+        }
+
     }, [id, user?.token]);
 
     function handleSetUpvote() {
@@ -58,7 +61,7 @@ const PostBar = ({ post, isPostDetails }) => {
     }
     
     useEffect(()=>{
-        const setUpvoteInitialState = ()=>{
+        const setUpvoteInitialState = () => {
             fetch(`http://localhost:4000/api/users/upvotes/${id}`, {
                 headers: {
                     'Authorization':`Bearer ${user?.token}`
@@ -74,8 +77,10 @@ const PostBar = ({ post, isPostDetails }) => {
                 console.log(err);
             })
         }
-        setUpvoteInitialState();
-
+        if(user) {
+            setUpvoteInitialState();
+        }
+        
     }, [id, user?.token]);
 
     function handleSetDownvote() {
@@ -114,7 +119,6 @@ const PostBar = ({ post, isPostDetails }) => {
         });
         
     }
-    console.log(user);
 
     function postDownvote() {
         
@@ -143,35 +147,40 @@ const PostBar = ({ post, isPostDetails }) => {
     }
 
     function handleUpvote() {
+        if(!user) return;
         handleSetUpvote();
         postUpvote();
         
     }
 
     function handleDownvote() {
+        if(!user) return;
         handleSetDownvote();
         postDownvote();
     }
 
     return ( <div className={PostBarClasses['post-bar']}>
         <div className={PostBarClasses['post-bar-sub']}>
-        { user &&
+        {
+            user &&
             <>
                 <UpvoteButton
                     postId={post._id}
                     upvote={upvote}
                     handleUpvote={handleUpvote}
                     upvoteNum={upvoteNum}
-                    />
+                />
                 <DownvoteButton
                     postId={post._id}
                     downvote={downvote}
                     handleDownvote={handleDownvote}
                     downvoteNum={downvoteNum}
-                    />
+                />
             </>
         }
-            <CommentButton commentsNum={post.comments.length}/>
+
+
+        <CommentButton commentsNum={post.comments.length} postId={post._id}/>
         </div>
         <div className={PostBarClasses['post-bar-sub']}>
             { user && <BookmarkButton postId={post._id}/> }

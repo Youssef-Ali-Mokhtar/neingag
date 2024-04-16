@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
     const handleLogin = (userData)=> {
         localStorage.setItem('user',JSON.stringify(userData));
         fetchUncheckedNotifications(userData);
-        dispatch({type: 'LOGIN', payload: userData})
+        dispatch({type: 'LOGIN', payload: userData});
     }
 
     const handleLogout = ()=> {

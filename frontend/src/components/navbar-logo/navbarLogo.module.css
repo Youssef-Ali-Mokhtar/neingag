@@ -28,3 +28,21 @@
 .menu-icon-container:hover {
     background-color: var(--color-hover);
 }
+
+@media screen and (max-width: 600px) {
+    .logo {
+        font-size: 1.2rem;
+        height: 32px;
+    }
+
+    .menu-icon-container {
+        width: 32px;
+        height: 32px;
+        margin-right: 4px;
+    }
+    
+    .menu-icon {
+        width: 20px;
+        height: 20px;
+    }
+}

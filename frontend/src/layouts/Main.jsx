@@ -10,6 +10,7 @@ import CategoryPosts from '../pages/CaregoryPosts';
 import { useAuthContext } from '../hooks/useAuthContext';
 import SearchPosts from '../pages/SearchPosts';
 import Settings from '../pages/Settings';
+import Notifications from '../pages/Notifications';
 
 const Main = () => {
     const { user } = useAuthContext();
@@ -19,6 +20,7 @@ const Main = () => {
             <Route path="/interest/:category" element={<CategoryPosts/>}/>
             <Route path="/search/" element={<SearchPosts/>}/>
             <Route path="/settings" element={<Settings/>}/>
+            <Route path="/notifications" element={<Notifications/>}/>
             <Route path="/:id" element={<PostDetails/>}/>
             <Route path="/create-post" element={user? <CreatePost/>: <Navigate to="/" />}/>
             <Route path="/profile/:userId" element={<Profile/>}>

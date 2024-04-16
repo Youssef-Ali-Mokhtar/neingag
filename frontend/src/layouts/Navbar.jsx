@@ -4,13 +4,18 @@ import NavbarButtons from '../components/navbar-buttons/NavbarButtons';
 import NavbarLogo from '../components/navbar-logo/NavbarLogo';
 import PCNotifications from './notifications-list/PCNotifications';
 import PCProfile from './profile-list/PCProfile';
+import FloatingCreateButton from '../components/create-button/FloatingCreateButton';
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Authentication from '../components/login/Authentication';
 import { useAuthModalContext } from './../hooks/useAuthModalContext';
 
 const Navbar = () => {
     const [notifications, setNotifications] = useState(false);
     const [profile, setProfile] = useState(false);
+    const location = useLocation();
+    const isCreatePostPath = location.pathname === '/create-post';
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const { authModal } = useAuthModalContext();
 
@@ -28,8 +33,18 @@ const Navbar = () => {
         setProfile(prev=>!prev);
     }
 
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
 
-    //To handle opening and closing notifications and profile dropdowns
     useEffect(()=>{
         
         const closeNotificationMenu = (event) => {
@@ -62,8 +77,9 @@ const Navbar = () => {
 
     return ( <div className={NavbarClasses['navbar']}>
         <NavbarLogo/>
-        <SearchBar/>
+        <SearchBar device='pc' windowWidth={windowWidth}/>
         <NavbarButtons
+            windowWidth={windowWidth}
             setNotifications={handleNotifications}
             setProfile={handleProfile}
             ref={{notificationBtnRef, profileBtnRef}}
@@ -71,8 +87,8 @@ const Navbar = () => {
         {notifications && <PCNotifications ref={notificationRef}/>}
         {profile && <PCProfile ref={profileRef}/>}
         {authModal && <Authentication/>}
-
+        {!isCreatePostPath && <FloatingCreateButton/>}
     </div> );
 }
- 
+
 export default Navbar;

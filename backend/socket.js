@@ -16,9 +16,3 @@ module.exports = {
         return io;
     }
 }
-
-// const io = socketIo(server, {
-//     cors: {
-//         origin: "http://localhost:3000"
-//     }
-// });
