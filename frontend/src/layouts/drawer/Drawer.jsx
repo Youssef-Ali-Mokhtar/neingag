@@ -4,10 +4,16 @@ import DrawerListItem from './DrawerListItem';
 import humor from './../../assets/grumpy_cat.jpg'
 import relationships from './../../assets/heart.jpg'
 import wtf from './../../assets/wtf.jpg'
+import home from './../../assets/home.svg';
 import random from './../../assets/dice.jpg'
 import SearchBar from '../../components/search-bar/SearchBar';
 
 const drawerList = [
+    {
+        title:'Home', 
+        path:'/',
+        image: home
+    },
     {
         title:'Humor', 
         path:'interest/humor',

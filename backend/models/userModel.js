@@ -142,7 +142,7 @@ userSchema.statics.addToNotifications = function(comment, postCreatorId) {
         })
 }
 
-userSchema.methods.deleteNotifications = function(userId, commentIds) {
+userSchema.statics.deleteNotifications = function(userId, commentIds) {
 
     const commentIdsString = commentIds.map(commentId => {
         return commentId.toString();

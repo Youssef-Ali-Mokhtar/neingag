@@ -8,5 +8,5 @@
 
 a {
     text-decoration: none;
-    color: white;
+    color: var(--color-primary-font);
 }

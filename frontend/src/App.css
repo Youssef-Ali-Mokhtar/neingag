@@ -12,6 +12,24 @@
   --color-bookmark: #FF3B30;
 }
 
+[data-theme="light"] {
+  --color-background-primary: #FFFFFF;
+  --color-background-secondary: #F2F2F2;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-faint-light: #CCCCCC;
+  --color-faint: #999999;
+  --color-post-icon: rgba(0, 0, 0, 0.5);
+  --color-primary-font: #333333;
+  --color-hover: #E5E5E5;
+  --color-icon: #333333;
+  --color-button: #0077FF;
+  --color-bookmark: #FF3B30;
+}
+
+* {
+  transition: background-color 0.4s ease;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -23,7 +41,7 @@
 body {
   padding: 0px;
   margin: 0px;
-  background-color: #0B1416;
+  background-color: var(--color-background-primary);
 }
 
 .infinite-scroll-component__outerdiv {

@@ -7,6 +7,13 @@ const SwitchTheme = () => {
   const handleToggle = (e) => {
     e.stopPropagation();
       setIsChecked((prev) => !prev);
+      if(e.target.checked) {
+        document.querySelector("body").setAttribute("data-theme", "dark");
+      } else {
+        document.querySelector("body").setAttribute("data-theme", "light");
+
+      }
+        
   };
   console.log(isChecked);
   return ( 

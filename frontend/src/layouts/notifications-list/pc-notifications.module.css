@@ -6,7 +6,7 @@
     position: absolute;
     top: 60px;
     right: 80px;
-    color: white;
+    color: var(--color-primary-font);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
