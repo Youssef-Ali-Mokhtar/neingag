@@ -2,10 +2,10 @@
     width: 240px;
     height: calc(100vh - 60px);
     margin-top: 60px;
-    background-color: rgba(0, 0, 0);
+    background-color: var(--color-background-primary);
     position: fixed;
     left: 0;
-    color: white;
+    color: var(--color-primary-font);
     padding: 10px 0px;
     box-sizing: border-box;
     display: flex;
@@ -14,6 +14,7 @@
     align-items: center;
     z-index: 99;
     transition: left 0.3s ease-in-out;
+    transition: background-color 0.4s ease;
 }
 
 .drawer-title {
@@ -53,9 +54,19 @@
     margin-right: 15px;
 }
 
+.drawer-list-item svg {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 15px;
+    color: var(--color-border);
+}
+
 @media screen and (max-width: 600px) {
     .drawer {
         margin-top: 40px;
+        height: calc(100vh - 40px);
     }
 
     .drawer-title {

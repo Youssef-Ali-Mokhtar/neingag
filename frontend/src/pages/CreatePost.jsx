@@ -109,6 +109,7 @@ const CreatePost = () => {
                 placeholder='Title'
                 value={postInput.title}
                 onChange={onChangeInput}
+                maxLength={280}
                 required
             />
             <textarea
@@ -119,6 +120,7 @@ const CreatePost = () => {
                 value={postInput.description}
                 onChange={onChangeInput}
                 required
+                maxLength={1000}
             />
             <div className={CreatePostClasses['input-button-holder']}>
                 <button className={CreatePostClasses['input-button']}>Post</button>

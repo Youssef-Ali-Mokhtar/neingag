@@ -21,7 +21,7 @@ input {
     outline: none;
     box-sizing: border-box;
     background-color: transparent;
-    color: white;
+    color: var(--color-primary-font);
     font-size: 14px;
     margin: 10px 0px;
 }
