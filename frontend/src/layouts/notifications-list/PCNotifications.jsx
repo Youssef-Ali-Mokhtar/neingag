@@ -61,6 +61,7 @@ const PCNotifications = (props, ref) => {
                 if(!data.length) {
                     setHasMore(false);
                 }else {
+                    console.log(data);
                     if(page === 1){
                         setNotifications(data);
                     } else {
@@ -77,7 +78,7 @@ const PCNotifications = (props, ref) => {
     useEffect(() => {
         
         const resetUncheckedNotifications = () => {
-            fetch(`http://localhost:4000/api/users/unchecked-notifications?`, {
+            fetch(`http://localhost:4000/api/users/unchecked-notifications`, {
                 method:'PATCH',
                 headers: {
                     'Authorization': `Bearer ${user?.token}`
@@ -100,7 +101,6 @@ const PCNotifications = (props, ref) => {
 
     }, [user, notificationsNum])
 
-    console.log(notifications);
     return ( <div className={PCNotificationsClasses['notifications']} ref={ref}>
         {
             notifications.map(note => {
@@ -108,7 +108,9 @@ const PCNotifications = (props, ref) => {
             })
         }
         {   notifications.length?
-            <div ref={targetRef}/>:''
+            <div 
+                ref={targetRef}
+                className={PCNotificationsClasses['notifications-target']}>-----</div>:''
         }
     </div> );
 }

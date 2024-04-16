@@ -30,6 +30,9 @@ body {
   width:100%;
 }
 
+input, textarea {
+  font-family: Arial, sans-serif;
+}
 
 ::-webkit-scrollbar {
   width: 5px;

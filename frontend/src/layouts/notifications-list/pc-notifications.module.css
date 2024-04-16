@@ -1,6 +1,5 @@
 .notifications {
     width: 300px;
-    /* height: fit-content; */
     height: 500px; /* Set a maximum height for the dropdown */
     overflow-y: auto;
     border-radius: 5px;
@@ -60,4 +59,11 @@
 .notification-text-container span {
     color:var(--color-faint-light);
     font-weight: 100;
+}
+
+.notifications-target {
+    width: 100px;
+    height: 10px;
+    font-size: 9px;
+    color: transparent;
 }

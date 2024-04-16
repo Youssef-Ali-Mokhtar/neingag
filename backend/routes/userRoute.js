@@ -44,9 +44,9 @@ router.get('/unchecked-notifications', getUncheckedNotifications);
 
 router.post('/upvotes', postUpvote);
 
-router.get('/upvotes/:id', checkUpvote);
-
 router.post('/downvotes', postDownvote);
+
+router.get('/upvotes/:id', checkUpvote);
 
 router.get('/downvotes/:id', checkDownvote);
 

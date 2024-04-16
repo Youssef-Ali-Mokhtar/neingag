@@ -14,6 +14,10 @@
     margin: 10px 0px;
 }
 
+.post-content-holder a:hover {
+    color: #09f;
+}
+
 .post-title {
     height: fit-content;
     width: 100%;
@@ -22,10 +26,6 @@
     font-weight: bold;
     padding:5px 0px;
     line-height: 1.6;
-}
-
-.post-content-holder a:hover {
-    color: #09f;
 }
 
 .post-description {
@@ -156,7 +156,7 @@
     color: var(--color-faint);
 }
 
-.text-container .comment {
+.comment {
     font-size: 14px;
     padding:5px 0px;
     box-sizing: border-box;
@@ -244,4 +244,85 @@
 
 .bookmark {
     color: var(--color-bookmark);
+}
+
+@media screen and (max-width: 600px) {
+    .post {
+        width: 90%;
+        padding: 5px;
+    }
+
+    .post-title {
+        font-size:16px;
+        line-height: 1.3;
+        padding:3px 0px;
+    }
+
+    .post-description {
+        font-size: 13px;
+        line-height: 1.3;
+        padding:3px 0px;
+    }
+
+    .post-content-holder {
+        margin: 5px 0px;
+    }
+
+    .post-header-container {
+        padding-top: 12px;
+    }
+    
+    .image-holder {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .image-holder img {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .text-holder {
+        padding-left: 8px;
+    }
+    
+    .text-holder p{
+        font-size: 12px;
+    }
+    
+    .text-holder h2{
+        font-size: 14px;
+    }
+
+    .comment-input-buttons-holder button {
+        padding: 6px 12px;
+        margin: 6px 0px 6px 6px;
+    }
+
+    .comment-input-container {
+        padding-top: 10px;
+    }
+    
+    .comment-input-container img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .comment-container {
+        padding: 6px 0px;
+    }
+    
+    .comment-container img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .comment {
+        padding:3px 0px;
+    }
+
+    .post-bar-sub > * {
+        margin: 0px 3px;
+        padding: 3px 0px;
+    }
 }

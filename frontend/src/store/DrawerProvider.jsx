@@ -11,7 +11,10 @@ const DrawerProvider = ({children}) => {
     });
 
     const handleDrawer = (event)=> {
+      if(event) {
         event.preventDefault();
+      }
+        
         setDrawer(prev=>!prev);
     }
 

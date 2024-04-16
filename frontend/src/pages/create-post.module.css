@@ -75,3 +75,32 @@
     font-weight: bold;
     background-color: var(--color-button);
 }
+
+@media screen and (max-width: 600px) {
+    .create-post {
+        width: 90%;
+    }
+
+    .input-container {
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    .select-category {
+        width: 100%;
+    }
+
+    .create-post-title {
+        padding: 5px 0px;
+        font-size: 24px;
+    }
+
+    .input-button {
+        height: 32px;
+        padding: 0px 12px;
+    }
+
+    .input-button-holder {
+        margin: 0px;
+    }
+}

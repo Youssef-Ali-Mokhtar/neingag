@@ -5,7 +5,7 @@ const { getIo } = require('../socket');
 
 const getPosts = (req, res)=> {
     const page = parseInt(req.query.page) || 1;
-    const limit = 4;
+    const limit = 5;
     const skip = (page - 1) * limit;
 
     Post.find().sort({createdAt: -1})
@@ -23,7 +23,7 @@ const getPosts = (req, res)=> {
 const getSpecificPosts = (req, res)=> {
     const category = req.params.category;
     const page = parseInt(req.query.page) || 1;
-    const limit = 4;
+    const limit = 5;
     const skip = (page - 1) * limit;
     
     Post.find({category: category}).

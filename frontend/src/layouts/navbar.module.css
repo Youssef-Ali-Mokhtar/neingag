@@ -13,5 +13,12 @@
     z-index: 100;
 }
 
+@media screen and (max-width: 600px) {
+    .navbar {
+        height: 45px;
+        gap: 6px;
+        /* justify-content: flex-start */
+    }
+}
 
 

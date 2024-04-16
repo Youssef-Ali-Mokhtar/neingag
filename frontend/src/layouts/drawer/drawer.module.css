@@ -7,6 +7,7 @@
     left: 0;
     color: white;
     padding: 10px 0px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -42,4 +43,22 @@
 
 .drawer-list-item:hover {
     background-color: var(--color-hover);
+}
+
+.drawer-list-item img {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+@media screen and (max-width: 600px) {
+    .drawer {
+        margin-top: 40px;
+    }
+
+    .drawer-title {
+        padding-top:8px;
+    }
 }

@@ -54,17 +54,6 @@ a {
 }
 
 .notification-count {
-  /* position: absolute;
-  width: 15px;
-  height: 12px;
-  top: 4px;
-  right: -4px;
-  background-color: red;
-  color: white;
-  border-radius: 8px;
-  font-size: 9px;
-  text-align: center;
-  cursor: pointer; */
   top: 5px;
   right: -1px;
   width: 15px;
@@ -115,7 +104,6 @@ a {
     object-fit: cover;
     border-radius: 50%;
 }
-
 
 .switch {
     position: relative;
@@ -187,4 +175,52 @@ a {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar-buttons {
+    height: 32px;
+    gap:7px;
+  }
+
+  .create-button {
+    display: none;
+  }
+
+  .notification-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .notification-icon {
+      width: 24px;
+      height: 24px;
+  }
+  
+  .profile-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .switch {
+    width: 44px;
+    height: 30px;
+  }
+  
+  .slider:before {
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 5px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
+  }
+
 }
