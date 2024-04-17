@@ -47,7 +47,6 @@ const Home = () => {
         setPage(prevPage => prevPage + 1);
       };
 
-    console.log(posts.length);
     return ( <div className={HomeClasses['home']}>
 
         {

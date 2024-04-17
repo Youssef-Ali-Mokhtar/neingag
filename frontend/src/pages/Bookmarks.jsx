@@ -23,7 +23,6 @@ const Bookmarks = () => {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             if(!data.length) {
                 setHasMore(false);
             }

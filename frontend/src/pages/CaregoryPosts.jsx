@@ -21,7 +21,6 @@ const CategoryPosts = () => {
     }, [category])
 
     useEffect(()=>{
-        console.log(category, page);
         fetch(`http://localhost:4000/api/posts/interest/${category}?page=${page}`, {
           headers: {
             'authorization': `Bearer ${user?.token}`
@@ -56,8 +55,6 @@ const CategoryPosts = () => {
   const handleLoadMore = () => {
     setPage(prevPage => prevPage + 1);
   };
-
-    console.log(posts.length);
 
     return ( <div className={MyPostsClasses['my-posts']}>
         {

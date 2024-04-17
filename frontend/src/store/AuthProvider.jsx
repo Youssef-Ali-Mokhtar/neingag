@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { authContext } from "./auth-context";
 import openSocket from 'socket.io-client';
 import { useNoteContext } from './../hooks/useNoteContext';
@@ -26,6 +26,37 @@ const AuthProvider = ({ children }) => {
         resetNotifications
     } = useNoteContext();
 
+    const socketRef = useRef(null); // Ref to hold the socket connection
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if(user) {
+            //fetch unchecked notifications
+            resetNotifications();
+
+            fetchUncheckedNotifications(user);
+
+            // Establish socket connection only if user is logged in
+            socketRef.current = openSocket('http://localhost:4000', {
+                query: { token: user.token }
+            });
+
+            socketRef.current.on('newComment', (data) => {
+                addNotification(1);
+            });
+        }
+
+        dispatch({type: 'LOGIN', payload: user})
+        console.log('Hey!');
+        return () => {
+            // Clean up the socket connection when component unmounts or user logs out
+            if (socketRef.current) {
+                socketRef.current.disconnect();
+            }
+        };
+    }, []);
+
     const fetchUncheckedNotifications = (user) => {
         resetNotifications();
 
@@ -34,56 +65,31 @@ const AuthProvider = ({ children }) => {
                 'Authorization': `Bearer ${user?.token}`
             }
         })
-            .then(response => {
-                return response.json();
-            })
-            .then(numOfUncheckedNotifications => {
-                addNotification(numOfUncheckedNotifications);
-            })
+            .then(response => response.json())
+            .then(numOfUncheckedNotifications => addNotification(numOfUncheckedNotifications))
             .catch(err => {
                 console.log(err.message);
-            })
-    }
-
-    useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        let socket;
-
-        if(user) {
-
-            //fetch unchecked notifications
-            fetchUncheckedNotifications(user);
-
-            socket = openSocket('http://localhost:4000', {
-                query: { token:user.token }
             });
-
-            socket.on('newComment', (data) => {
-                console.log('Received a comment:', data);
-                console.log(notifications);
-                addNotification(1);
-              });
-
-        }
-
-        dispatch({type: 'LOGIN', payload: user})
-
-        return () => {
-            // Clean up the socket connection when component unmounts
-            socket.disconnect();
-          };
-    }, []);
+    }
 
     const handleLogin = (userData)=> {
         localStorage.setItem('user',JSON.stringify(userData));
         fetchUncheckedNotifications(userData);
+        // Reconnect socket on login
+        socketRef.current = openSocket('http://localhost:4000', {
+            query: { token: userData.token }
+        });
         dispatch({type: 'LOGIN', payload: userData});
     }
 
     const handleLogout = ()=> {
-        localStorage.setItem('user', null);
+        localStorage.removeItem('user');
         resetNotifications();
         dispatch({type: 'LOGOUT'});
+        // Disconnect socket on logout
+        if (socketRef.current) {
+            socketRef.current.disconnect();
+        }
     }
 
     const authValues = {
@@ -92,9 +98,11 @@ const AuthProvider = ({ children }) => {
         handleLogout: handleLogout
     }
 
-    return ( <authContext.Provider value={ authValues }>
-        { children }
-    </authContext.Provider> );
+    return ( 
+        <authContext.Provider value={ authValues }>
+            { children }
+        </authContext.Provider>
+    );
 }
  
 export default AuthProvider;

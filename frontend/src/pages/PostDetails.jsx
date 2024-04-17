@@ -12,7 +12,7 @@ const PostDetails = () => {
 
     const { user } = useAuthContext();
     const [post, setPost] = useState(null);
-    console.log(post);
+
     const fetchData = useCallback(()=> {
         fetch(`http://localhost:4000/api/posts/${id}`, {
             headers: {
@@ -40,7 +40,6 @@ const PostDetails = () => {
     const refetch = ()=>{
         fetchData();
     }
-    console.log(post);
 
     return ( <div className={PostDetailsClasses['post-details']}>
         {

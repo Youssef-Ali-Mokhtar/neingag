@@ -183,7 +183,6 @@ const deleteComment = (req, res) => {
             return User.deleteNotifications(post.userId, [commentId]);
         })
         .then(user => {
-            console.log("NOTIFICATIONS AFTER", user.notifications);
             res.json("Comment deleted successfully.");
         })
         .catch(err => {

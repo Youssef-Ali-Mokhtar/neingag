@@ -16,7 +16,6 @@ const Notifications = () => {
     const [hasMore, setHasMore] = useState(true);
 
     useEffect(() => {
-        console.log(page);
         
         const fetchNotifications = () => {
             fetch(`http://localhost:4000/api/users/notifications?page=${page}`, {
@@ -28,7 +27,6 @@ const Notifications = () => {
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data);
                     if(!data.length) {
                         setHasMore(false);
                     }else {

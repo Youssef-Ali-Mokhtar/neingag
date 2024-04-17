@@ -15,7 +15,7 @@ const SwitchTheme = () => {
       }
         
   };
-  console.log(isChecked);
+
   return ( 
     <div>
       <label className={SwitchClasses.switch}>

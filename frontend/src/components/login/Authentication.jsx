@@ -21,11 +21,9 @@ const Authentication = () => {
         data,
         error
     } = useFetchAuth();
-    
-    console.log(data);
 
     const { user } = useAuthContext();
-    console.log("USER STATE NOW: ", user);
+
     const handleMode = (type)=> {
         setMode(type);
     }
@@ -66,7 +64,6 @@ const Authentication = () => {
     const modeString = 
         (mode==='login'&&'Log In') ||
          (mode==='signup'&&'Sign Up');
-    console.log(signupInput);
     return (
         <Modal 
             title={modeString}>
