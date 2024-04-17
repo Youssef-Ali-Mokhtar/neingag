@@ -9,7 +9,6 @@ const DeleteButton = ({ commentId, postId, refetch }) => {
     const id = useParams().id || postId;
     
     const handleDelete = () => {
-        console.log(commentId);
         fetch(`http://localhost:4000/api/posts/${id}/${commentId?commentId:''}`, {
             method:'DELETE',
             headers: {
@@ -17,7 +16,6 @@ const DeleteButton = ({ commentId, postId, refetch }) => {
             }
         })
         .then(response => {
-            console.log(response);
             if(commentId) {
                 refetch();
             } else {

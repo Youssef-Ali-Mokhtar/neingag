@@ -21,7 +21,6 @@ const PCNotifications = (props, ref) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting ) {
                     // Callback function when the target element is scrolled into view
-                    console.log('Target element is in view');
                     if(hasMore) {
                         setPage(prev => prev+1);
                     }
@@ -47,7 +46,6 @@ const PCNotifications = (props, ref) => {
     }, [notifications, hasMore]);
 
     useEffect(() => {
-        console.log(page);
         fetch(`http://localhost:4000/api/users/notifications?page=${page}`, {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
@@ -57,11 +55,9 @@ const PCNotifications = (props, ref) => {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
                 if(!data.length) {
                     setHasMore(false);
                 }else {
-                    console.log(data);
                     if(page === 1){
                         setNotifications(data);
                     } else {

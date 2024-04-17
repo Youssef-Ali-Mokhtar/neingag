@@ -9,8 +9,6 @@ const Comment = ({comment, refetch}) => {
     const { user } = useAuthContext();
     const isAuthorized = user?.userId === comment.userId._id;
 
-    console.log(comment._id);
-
     return ( <div id = {comment._id} className={CommentClasses['comment-container']}>
         <Link to={`/profile/${comment.userId._id}`}>
             <img src={extractAvatar(comment.userId.avatarNum)} alt="pic"/>

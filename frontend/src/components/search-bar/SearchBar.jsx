@@ -26,8 +26,7 @@ const SearchBar = ({ device, windowWidth }) => {
           handleSearch();
         }
     }
-    console.log('mobile:',(device === 'mobile' && windowWidth <= 600));
-    console.log('pc:',(device === 'pc' && windowWidth > 600));
+
     return ( <>
     {
         ((device === 'mobile' && windowWidth <= 600) ||

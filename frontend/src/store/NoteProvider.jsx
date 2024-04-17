@@ -5,7 +5,6 @@ const NoteProvider = ({ children }) => {
     const [notifications, setNotifications] = useState(0);
 
     const addNotification = (num)=> {
-        console.log("NOTIFICATION ADDED");
         setNotifications(prev=>prev+num);
     }
 
