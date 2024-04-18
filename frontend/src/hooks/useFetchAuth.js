@@ -13,7 +13,7 @@ const useFetchAuth = ()=> {
     const fetchAuth = (input, type) => {
 
         setError(null);
-        fetch(`http://localhost:4000/api/users/${type}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/${type}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

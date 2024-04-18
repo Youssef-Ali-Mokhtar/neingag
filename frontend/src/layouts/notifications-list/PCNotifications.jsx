@@ -46,7 +46,7 @@ const PCNotifications = (props, ref) => {
     }, [notifications, hasMore]);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/api/users/notifications?page=${page}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/notifications?page=${page}`, {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
             }
@@ -74,7 +74,7 @@ const PCNotifications = (props, ref) => {
     useEffect(() => {
         
         const resetUncheckedNotifications = () => {
-            fetch(`http://localhost:4000/api/users/unchecked-notifications`, {
+            fetch(`${process.env.REACT_APP_API_URL}/api/users/unchecked-notifications`, {
                 method:'PATCH',
                 headers: {
                     'Authorization': `Bearer ${user?.token}`

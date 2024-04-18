@@ -21,7 +21,7 @@ const CategoryPosts = () => {
     }, [category])
 
     useEffect(()=>{
-        fetch(`http://localhost:4000/api/posts/interest/${category}?page=${page}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/posts/interest/${category}?page=${page}`, {
           headers: {
             'authorization': `Bearer ${user?.token}`
           }

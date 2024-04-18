@@ -4,9 +4,6 @@ const app = express();
 const cors = require('cors');
 const postRoutes = require('./routes/postRoute');
 const userRoutes = require('./routes/userRoute');
-const User = require('./models/userModel');
-const requireAuth = require('./middleware/requireAuth');
-const socketIo = require('socket.io');
 const {init} = require('./socket');
 const { addUserSocket, getUserSocket } = require('./socketManager');
 const jwt = require('jsonwebtoken');
@@ -21,10 +18,10 @@ app.use('/api/posts', postRoutes);
 
 app.use('/api/users', userRoutes);
 
-mongoose.connect(('mongodb+srv://youssef96mokhtar:LinuxLinux96@cluster0.aqpb7ct.mongodb.net/neingag?retryWrites=true&w=majority&appName=Cluster0'))
-    .then(()=>{
-        const server = app.listen(4000, ()=> {
-            console.log('Server running on port 4000...');
+mongoose.connect(process.env.DATABASE_URI)
+    .then(() => {
+        const server = app.listen(process.env.PORT, ()=> {
+            console.log(`Server running on port ${process.env.PORT}...`);
             
         });
         init(server).on('connection', socket => {

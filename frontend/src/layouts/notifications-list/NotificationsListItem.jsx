@@ -13,7 +13,7 @@ const NotificationsListItem = ({ note }) => {
         ) {
           navigate(`/profile/${note?.userId._id}`);
         } else {
-          navigate(`/${note?.postId}`);
+          navigate(`/post/${note?.postId}`);
         }
     }
 

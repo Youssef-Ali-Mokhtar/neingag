@@ -10,7 +10,7 @@ const ProfileHeader = () => {
 
     useEffect(()=> {
         const fetchProfile = ()=> {
-            fetch(`http://localhost:4000/api/users/profile/${userId}`)
+            fetch(`${process.env.REACT_APP_API_URL}/api/users/profile/${userId}`)
             .then((response)=>{
                 return response.json();
             })

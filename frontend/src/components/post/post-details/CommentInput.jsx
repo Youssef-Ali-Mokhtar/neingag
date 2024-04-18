@@ -20,7 +20,7 @@ const CommentInput = ({ refetch }) => {
     const handleSubmit = ()=> {
         if(!comment) return;
 
-        fetch(`http://localhost:4000/api/posts/${id}/comments`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/posts/${id}/comments`, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${user.token}`,

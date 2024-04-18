@@ -13,7 +13,7 @@ const BookmarkButton = ({ postId }) => {
     // const postId = id ||
     const handleBookmark = ()=> {
         setBookmark(prev=>!prev);
-        fetch(`http://localhost:4000/api/users/bookmarks`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/bookmarks`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${user?.token}`,
@@ -33,7 +33,7 @@ const BookmarkButton = ({ postId }) => {
 
     useEffect(()=>{
         const setBookmarkInitialState = ()=>{
-            fetch(`http://localhost:4000/api/users/bookmarks/${id}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/api/users/bookmarks/${id}`, {
                 headers: {
                     'Authorization':`Bearer ${user?.token}`
                 }

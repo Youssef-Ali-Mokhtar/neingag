@@ -14,7 +14,7 @@ const PostDetails = () => {
     const [post, setPost] = useState(null);
 
     const fetchData = useCallback(()=> {
-        fetch(`http://localhost:4000/api/posts/${id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/posts/${id}`, {
             headers: {
               'authorization': `Bearer ${user?.token}`
             }

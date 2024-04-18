@@ -11,7 +11,7 @@ const Bookmarks = () => {
     const [page, setPage] = useState(1);
 
     useEffect(()=>{
-        fetch(`http://localhost:4000/api/users/bookmarks?page=${page}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/bookmarks?page=${page}`, {
             headers: {
               'authorization': `Bearer ${user?.token}`
             }
