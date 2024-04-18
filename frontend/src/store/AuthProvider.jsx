@@ -21,7 +21,6 @@ const authReducer = (state, action)=> {
 const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, reducerValue);
     const {
-        notifications,
         addNotification,
         resetNotifications
     } = useNoteContext();
@@ -38,7 +37,7 @@ const AuthProvider = ({ children }) => {
             fetchUncheckedNotifications(user);
 
             // Establish socket connection only if user is logged in
-            socketRef.current = openSocket('http://localhost:4000', {
+            socketRef.current = openSocket(process.env.REACT_APP_API_URL, {
                 query: { token: user.token }
             });
 
@@ -60,7 +59,7 @@ const AuthProvider = ({ children }) => {
     const fetchUncheckedNotifications = (user) => {
         resetNotifications();
 
-        fetch(`http://localhost:4000/api/users/unchecked-notifications`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/unchecked-notifications`, {
             headers: {
                 'Authorization': `Bearer ${user?.token}`
             }
@@ -76,7 +75,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem('user',JSON.stringify(userData));
         fetchUncheckedNotifications(userData);
         // Reconnect socket on login
-        socketRef.current = openSocket('http://localhost:4000', {
+        socketRef.current = openSocket(process.env.REACT_APP_API_URL, {
             query: { token: userData.token }
         });
         dispatch({type: 'LOGIN', payload: userData});

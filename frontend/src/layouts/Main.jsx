@@ -11,6 +11,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import SearchPosts from '../pages/SearchPosts';
 import Settings from '../pages/Settings';
 import Notifications from '../pages/Notifications';
+import ErrorPage from '../pages/ErrorPage';
 
 const Main = () => {
     const { user } = useAuthContext();
@@ -21,13 +22,14 @@ const Main = () => {
             <Route path="/search/" element={<SearchPosts/>}/>
             <Route path="/settings" element={<Settings/>}/>
             <Route path="/notifications" element={<Notifications/>}/>
-            <Route path="/:id" element={<PostDetails/>}/>
+            <Route path="/post/:id" element={<PostDetails/>}/>
             <Route path="/create-post" element={user? <CreatePost/>: <Navigate to="/" />}/>
             <Route path="/profile/:userId" element={<Profile/>}>
                 <Route index element={<Navigate to="posts" replace />} />
                 <Route path="posts" element={<MyPosts/>}/>
-                <Route path="bookmarks" element={user? <Bookmarks/>: <Navigate to="posts" />}/>
+                <Route path="bookmarks" element={<Bookmarks/>}/>
             </Route>
+            <Route path='*' element={<ErrorPage/>}/>
         </Routes>
     </div> );
 }

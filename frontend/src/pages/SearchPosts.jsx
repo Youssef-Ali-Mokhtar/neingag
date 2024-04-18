@@ -14,7 +14,7 @@ const SearchPosts = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(()=>{
-        fetch(`http://localhost:4000/api/posts/search?query=${encodedQuery}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/posts/search?query=${encodedQuery}`, {
             headers: {
               'authorization': `Bearer ${user?.token}`
             }

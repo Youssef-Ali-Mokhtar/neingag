@@ -26,7 +26,7 @@ const PostBar = ({ post, isPostDetails }) => {
 
     useEffect(() => {
         const setDownvoteInitialState = () => {
-            fetch(`http://localhost:4000/api/users/downvotes/${id}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/api/users/downvotes/${id}`, {
                 headers: {
                     'Authorization':`Bearer ${user?.token}`
                 }
@@ -46,7 +46,7 @@ const PostBar = ({ post, isPostDetails }) => {
             setDownvoteInitialState();
         }
 
-    }, [id, user?.token]);
+    }, [id, user]);
 
     function handleSetUpvote() {
         setUpvoteNum(prev => {
@@ -62,7 +62,7 @@ const PostBar = ({ post, isPostDetails }) => {
     
     useEffect(()=>{
         const setUpvoteInitialState = () => {
-            fetch(`http://localhost:4000/api/users/upvotes/${id}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/api/users/upvotes/${id}`, {
                 headers: {
                     'Authorization':`Bearer ${user?.token}`
                 }
@@ -81,7 +81,7 @@ const PostBar = ({ post, isPostDetails }) => {
             setUpvoteInitialState();
         }
         
-    }, [id, user?.token]);
+    }, [id, user]);
 
     function handleSetDownvote() {
         setDownvoteNum(prev => {
@@ -96,7 +96,7 @@ const PostBar = ({ post, isPostDetails }) => {
     }
 
     function postUpvote() {
-        fetch(`http://localhost:4000/api/users/upvotes`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/upvotes`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${user?.token}`,
@@ -122,7 +122,7 @@ const PostBar = ({ post, isPostDetails }) => {
 
     function postDownvote() {
         
-        fetch(`http://localhost:4000/api/users/downvotes`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/downvotes`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${user?.token}`,

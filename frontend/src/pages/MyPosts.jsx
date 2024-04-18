@@ -11,7 +11,7 @@ const MyPosts = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(()=>{
-        fetch(`http://localhost:4000/api/posts/${userId}/posts`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/posts/${userId}/posts`, {
             headers: {
               'authorization': `Bearer ${user?.token}`
             }

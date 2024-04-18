@@ -71,7 +71,7 @@ const CreatePost = () => {
 
     const handleSubmitInput = (event)=> {
         event.preventDefault();
-        fetch('http://localhost:4000/api/posts', {
+        fetch(`${process.env.REACT_APP_API_URL}/api/posts`, {
             method:'POST',
             headers: {
                 'Authorization': `Bearer ${user.token}`,

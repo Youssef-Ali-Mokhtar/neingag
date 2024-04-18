@@ -11,7 +11,7 @@ const Settings = () => {
 
     useEffect(()=> {
         const fetchProfile = ()=> {
-            fetch(`http://localhost:4000/api/users/profile/${user?.userId}`)
+            fetch(`${process.env.REACT_APP_API_URL}/api/users/profile/${user?.userId}`)
             .then((response)=>{
                 return response.json();
             })
@@ -52,7 +52,7 @@ const Settings = () => {
     }
 
     const handleSubmit = ()=> {
-        fetch(`http://localhost:4000/api/users/profile`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${user.token}`,
