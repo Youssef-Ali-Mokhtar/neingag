@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/neingag/static/css/main.74c68608.css",
+    "main.js": "/neingag/static/js/main.da368595.js",
+    "static/media/walter.png": "/neingag/static/media/walter.61ce52e4333a483a9dc8.png",
+    "static/media/guy-confused.jpg": "/neingag/static/media/guy-confused.982ce1117babc3b4b20a.jpg",
+    "static/media/grumpy_cat.jpg": "/neingag/static/media/grumpy_cat.c1a00666e2a01aa4a188.jpg",
+    "static/media/mr_bean.jpg": "/neingag/static/media/mr_bean.43a6326a06e0fa3bb53e.jpg",
+    "static/media/facepalm.png": "/neingag/static/media/facepalm.639b61468d7fa6b52932.png",
+    "static/media/goku.png": "/neingag/static/media/goku.84f95b61865f3eefc0cc.png",
+    "static/media/wtf.jpg": "/neingag/static/media/wtf.2a00350d015099f0b6ee.jpg",
+    "static/media/dog.png": "/neingag/static/media/dog.a3e83c8941857221628a.png",
+    "static/media/prof.png": "/neingag/static/media/prof.72529b44836eb29dd98a.png",
+    "static/media/fry.png": "/neingag/static/media/fry.98092cdf8a889de62c3e.png",
+    "static/media/kevin.jpg": "/neingag/static/media/kevin.e6ec82ec19bfed1cbb25.jpg",
+    "static/media/batman.jpg": "/neingag/static/media/batman.07687ddcc159fc7dbe50.jpg",
+    "static/media/heart.jpg": "/neingag/static/media/heart.06f9a9dad3220f58d3ee.jpg",
+    "static/media/dice.jpg": "/neingag/static/media/dice.011096cc41c82af23ff6.jpg",
+    "static/media/doom.png": "/neingag/static/media/doom.6f64d14063447d0c50b5.png",
+    "static/media/home.svg": "/neingag/static/media/home.689ed54675b419961f1397651e0cbbbe.svg",
+    "index.html": "/neingag/index.html",
+    "main.74c68608.css.map": "/neingag/static/css/main.74c68608.css.map",
+    "main.da368595.js.map": "/neingag/static/js/main.da368595.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.74c68608.css",
+    "static/js/main.da368595.js"
+  ]
+}
