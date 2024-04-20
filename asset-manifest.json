@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/neingag/static/css/main.74c68608.css",
-    "main.js": "/neingag/static/js/main.da368595.js",
+    "main.js": "/neingag/static/js/main.a9b188bc.js",
     "static/media/walter.png": "/neingag/static/media/walter.61ce52e4333a483a9dc8.png",
     "static/media/guy-confused.jpg": "/neingag/static/media/guy-confused.982ce1117babc3b4b20a.jpg",
     "static/media/grumpy_cat.jpg": "/neingag/static/media/grumpy_cat.c1a00666e2a01aa4a188.jpg",
@@ -17,13 +17,13 @@
     "static/media/heart.jpg": "/neingag/static/media/heart.06f9a9dad3220f58d3ee.jpg",
     "static/media/dice.jpg": "/neingag/static/media/dice.011096cc41c82af23ff6.jpg",
     "static/media/doom.png": "/neingag/static/media/doom.6f64d14063447d0c50b5.png",
-    "static/media/home.svg": "/neingag/static/media/home.689ed54675b419961f1397651e0cbbbe.svg",
     "index.html": "/neingag/index.html",
+    "static/media/home.svg": "/neingag/static/media/home.689ed54675b419961f1397651e0cbbbe.svg",
     "main.74c68608.css.map": "/neingag/static/css/main.74c68608.css.map",
-    "main.da368595.js.map": "/neingag/static/js/main.da368595.js.map"
+    "main.a9b188bc.js.map": "/neingag/static/js/main.a9b188bc.js.map"
   },
   "entrypoints": [
     "static/css/main.74c68608.css",
-    "static/js/main.da368595.js"
+    "static/js/main.a9b188bc.js"
   ]
 }
