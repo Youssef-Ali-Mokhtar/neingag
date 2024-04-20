@@ -47,6 +47,8 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
 }
 
 .mode-button {
