@@ -32,3 +32,10 @@
 .profile-list-item:hover {
     background-color: var(--color-hover);
 }
+
+@media screen and (max-width: 600px) {
+    .profile {
+        top: 45px;
+        right: 10px;
+    }
+}

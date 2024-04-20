@@ -15,7 +15,7 @@ root.render(
         <AuthProvider>
             <AuthModalProvider>
                 <DrawerProvider>
-                    <BrowserRouter>
+                    <BrowserRouter basename='/neingag'>
                         <App />
                     </BrowserRouter>
                 </DrawerProvider>

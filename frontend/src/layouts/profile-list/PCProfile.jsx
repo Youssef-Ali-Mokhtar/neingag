@@ -13,7 +13,7 @@ const PCProfile = (props, ref) => {
 
     const handleNavigate = (event)=>{
         event.preventDefault();
-        navigate(`profile/${user.userId}`);
+        navigate(`/profile/${user.userId}`);
     }
     const handleLogout = (event)=>{
         event.preventDefault();

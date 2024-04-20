@@ -38,12 +38,19 @@ const drawerList = [
 
 
 const Drawer = () => {
-    const {drawer} = useDrawerContext();
+    const {drawer, setDrawer} = useDrawerContext();
 
     const drawerClass = `${DrawerClasses['drawer']} ${
         drawer ? '' : DrawerClasses['closed']
       }`;
 
+    const handleDrawer = ()=> {
+        if(window.innerWidth > 600) {
+            return;
+        }
+        setDrawer();
+    }
+    
     return ( <div className={drawerClass}>
         <SearchBar device='mobile'/>
         <p className={DrawerClasses['drawer-title']}>Categories</p>
@@ -54,6 +61,7 @@ const Drawer = () => {
                     path={item.path} 
                     title={item.title}
                     image={item.image}
+                    onClick={handleDrawer}
                     />;
             })
             

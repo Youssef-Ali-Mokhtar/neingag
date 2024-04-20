@@ -16,15 +16,15 @@ import ErrorPage from '../pages/ErrorPage';
 const Main = () => {
     const { user } = useAuthContext();
     return ( <div className={MainClasses['content-holder']}>
-        <Routes>
+        <Routes basename="/neingag">
             <Route index element={<Home/>}/>
-            <Route path="/interest/:category" element={<CategoryPosts/>}/>
-            <Route path="/search/" element={<SearchPosts/>}/>
-            <Route path="/settings" element={<Settings/>}/>
-            <Route path="/notifications" element={<Notifications/>}/>
-            <Route path="/post/:id" element={<PostDetails/>}/>
-            <Route path="/create-post" element={user? <CreatePost/>: <Navigate to="/" />}/>
-            <Route path="/profile/:userId" element={<Profile/>}>
+            <Route path="interest/:category" element={<CategoryPosts/>}/>
+            <Route path="search/" element={<SearchPosts/>}/>
+            <Route path="settings" element={<Settings/>}/>
+            <Route path="notifications" element={<Notifications/>}/>
+            <Route path="post/:id" element={<PostDetails/>}/>
+            <Route path="create-post" element={user? <CreatePost/>: <Navigate to="/" />}/>
+            <Route path="profile/:userId" element={<Profile/>}>
                 <Route index element={<Navigate to="posts" replace />} />
                 <Route path="posts" element={<MyPosts/>}/>
                 <Route path="bookmarks" element={<Bookmarks/>}/>
