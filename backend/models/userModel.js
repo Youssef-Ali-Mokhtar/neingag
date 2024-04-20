@@ -176,7 +176,7 @@ userSchema.statics.signup = function(username, email, password, bio, avatarNum) 
                 reject(Error('Email is not valid.'));
             }
             if (!validator.isStrongPassword(password)) {
-                reject(Error('Password is not strong enough.'));
+                reject(Error('Make the password strong by including at least one uppercase letter, one number, and one special character (!, @, #, etc.).'));
             }
             resolve();
         });
